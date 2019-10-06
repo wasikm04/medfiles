@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/medfiles/static/css/main.b100e6da.chunk.css",
-    "main.js": "/medfiles/static/js/main.af02eaa8.chunk.js",
-    "main.js.map": "/medfiles/static/js/main.af02eaa8.chunk.js.map",
+    "main.js": "/medfiles/static/js/main.bf3266ee.chunk.js",
+    "main.js.map": "/medfiles/static/js/main.bf3266ee.chunk.js.map",
     "runtime-main.js": "/medfiles/static/js/runtime-main.775e2251.js",
     "runtime-main.js.map": "/medfiles/static/js/runtime-main.775e2251.js.map",
-    "static/js/2.46d6aa2c.chunk.js": "/medfiles/static/js/2.46d6aa2c.chunk.js",
-    "static/js/2.46d6aa2c.chunk.js.map": "/medfiles/static/js/2.46d6aa2c.chunk.js.map",
+    "static/js/2.467ce995.chunk.js": "/medfiles/static/js/2.467ce995.chunk.js",
+    "static/js/2.467ce995.chunk.js.map": "/medfiles/static/js/2.467ce995.chunk.js.map",
     "index.html": "/medfiles/index.html",
-    "precache-manifest.36c4e587a35e0d9d42f9eb41b20c14f7.js": "/medfiles/precache-manifest.36c4e587a35e0d9d42f9eb41b20c14f7.js",
+    "precache-manifest.b27a685b47e2d71ffb4d949dcb24f377.js": "/medfiles/precache-manifest.b27a685b47e2d71ffb4d949dcb24f377.js",
     "service-worker.js": "/medfiles/service-worker.js",
     "static/css/main.b100e6da.chunk.css.map": "/medfiles/static/css/main.b100e6da.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.775e2251.js",
-    "static/js/2.46d6aa2c.chunk.js",
+    "static/js/2.467ce995.chunk.js",
     "static/css/main.b100e6da.chunk.css",
-    "static/js/main.af02eaa8.chunk.js"
+    "static/js/main.bf3266ee.chunk.js"
   ]
 }

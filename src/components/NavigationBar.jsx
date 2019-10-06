@@ -4,19 +4,19 @@ import { CardConsumer } from './providers/CardProvider';
 
 const NavigationBar = () => (
   <CardConsumer>
-    {({ isAuthenticated }) => (
+    {({ isAuthenticated, isDoctor, updateCard }) => (
       <div>
-        {isAuthenticated ? 
-        <div>
         <Link to="/">Strona główna</Link>
         <Link to="/profile">Karta pacjenta</Link>
         <Link to="/appointments">Wizyty</Link>
         <Link to="/logout">Wyloguj</Link>
-        </div>
-        : <Link to="/login">Zaloguj</Link>
-      }
+        {isDoctor ? 
+        <Link to="/doctor-card">Karta lekarza</Link>
+        : null }
       </div>
     )}
   </CardConsumer>
+
+  //funkcja do wylogowywania i zmianiająca flage isAuth
 )
 export default NavigationBar

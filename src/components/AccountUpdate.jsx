@@ -16,15 +16,19 @@ class AccountUpdate extends Component {
 
       handleOnSubmit = event => {
         event.preventDefault() 
-        const updatedAccount = { ...this.state } 
-        this.props.updateAccount(updatedAccount)
+        const data = new FormData(event.target);
+        const values = data.values().next();
+        const updatedCard = { ...this.state } 
+        this.props.updateCard(updatedCard)
       }
+
+      
 
       render () {
         const { firstname, lastname, mail } = this.state
         return (
           <div>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleOnSubmit}>
               <label htmlFor="firstname">Imię</label>
               <div>
                 <input 
@@ -53,6 +57,7 @@ class AccountUpdate extends Component {
                 />
               </div>
               <input type="submit" value="Zapisz" />
+              <button>Send data!</button>
             </form>
           </div>
         )

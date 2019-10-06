@@ -4,9 +4,7 @@ import { CardConsumer } from '../providers/CardProvider';
 
 const CardDetails = () => (
   <CardConsumer>
-    {({ card, isAuthenticated }) => (
-      <div>
-        {isAuthenticated ?
+    {({ card}) => (
           <div>
             <div>
               <p>Imię: {card.first_name}</p>
@@ -16,10 +14,6 @@ const CardDetails = () => (
             </div>
             <Link to="/profile-update">Aktualizacja karty</Link>
           </div>
-          :
-          <div>Zaloguj się aby uzyskać dostęp do karty</div>
-        }
-      </div>
     )}
   </CardConsumer>
 )

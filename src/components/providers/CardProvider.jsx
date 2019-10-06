@@ -23,7 +23,8 @@ class CardProvider extends Component {
       "treatments": [],
       "pesel": "97042907194"
     },
-    role: "user", //doctor
+    isDoctor: false, //doctor
+    doctorCard:{},
     user: "userNew@pw.pl",
     updateCard: updatedCard => this.updateCard(updatedCard),
     isAuthenticated: false

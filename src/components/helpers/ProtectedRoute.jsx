@@ -10,7 +10,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
         {({isAuthenticated }) => (
             <Route {...rest} render={(props) => (
                 isAuthenticated === true ?
-                    <Component {...props} /> : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+                    <Component {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
             )} />
         )}
     </CardConsumer>

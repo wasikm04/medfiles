@@ -1,72 +1,66 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Container } from 'reactstrap';
 import { withCookies } from 'react-cookie';
-
+import { axios } from 'axios';
+import { CardConsumer } from './providers/CardProvider'
 class Home extends Component {
 
-//po zalogowaniu get /user/usermail aby pobrać user role
+  state = {
+    username: this.props.user,
+    isAuthenticated: this.props.isAuthenticated,
+    card: this.props.card,
+    doctorCard: this.props.doctorCard
+  };
 
-    // state = {
-    //   isLoading: true,
-    //   isAuthenticated: false,
-    //   card: undefined
-    // };
-  
-    // constructor(props) {
-    //   super(props);
-    //   const {cookies} = props;
-    //   this.state.csrfToken = cookies.get('XSRF-TOKEN');
-    //   this.login = this.login.bind(this);
-    //   this.logout = this.logout.bind(this);
-    // }
-  
-    // async componentDidMount() {
-    //   const response = await fetch('/api/user', {credentials: 'include'});
-    //   const body = await response.text();
-    //   if (body === '') {
-    //     this.setState(({isAuthenticated: false}))
-    //   } else {
-    //     this.setState({isAuthenticated: true, user: JSON.parse(body)})
-    //   }
-    // }
-  
-    // login() {
-    //   let port = (window.location.port ? ':' + window.location.port : '');
-    //   if (port === ':3000') {
-    //     port = ':8080';
-    //   }
-    //   window.location.href = '//' + window.location.hostname + port + '/private';
-    // }
-  
-    // logout() {
-    //   fetch('/api/logout', {method: 'POST', credentials: 'include',
-    //     headers: {'X-XSRF-TOKEN': this.state.csrfToken}}).then(res => res.json())
-    //     .then(response => {
-    //       window.location.href = response.logoutUrl + "?id_token_hint=" +
-    //         response.idToken + "&post_logout_redirect_uri=" + window.location.origin;
-    //     });
-    // }
-  
-   render() {
-    // //   const message = this.state.user ?
-    // //     <h2>Welcome, {this.state.user.name}!</h2> :
-    // //     <p>Please log in to manage your JUG Tour.</p>;
-  
-    // //   const button = this.state.isAuthenticated ?
-    // //     <div>
-    // //       <Button color="link"><Link to="/groups">Manage JUG Tour</Link></Button>
-    // //       <br/>
-    // //       <Button color="link" onClick={this.logout}>Logout</Button>
-    // //     </div> :
-    // //     <Button color="primary" onClick={this.login}>Login</Button>;
-  
-      return (
-         <div>
-         home
-       </div>
-    );
+  constructor(props) {
+    super(props);
+    const { cookies } = props;
+  }
+
+  async componentDidMount() {
+    if (this.state.isDoctor) {
+      axios.get('/doctor-card/' + this.state.username, { withCredentials: true })
+        .then(function (response) {
+          this.props.updateCard({ doctorCard: response })
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+    } else {
+      axios.get('/card/' + this.stateusername, { withCredentials: true })
+        .then(function (response) {
+          this.props.updateCard({ card: response })
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
     }
   }
-  
-  export default withCookies(Home);
+
+  render() {
+    return (
+      <div>
+        user:
+        {this.state.card}
+      </div>
+    );
+  }
+}
+
+const ConnectedHome = props => (
+  <CardConsumer>
+    {({ isAuthenticated, card, user, doctorCard, isDoctor }) => (
+      <Home
+        {...props}
+        isAuthenticated={isAuthenticated}
+        user={user}
+        card={card}
+        doctorCard={doctorCard}
+        isDoctor={isDoctor}
+      />
+    )}
+  </CardConsumer>
+)
+
+export default withCookies(ConnectedHome);

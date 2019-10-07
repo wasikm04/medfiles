@@ -1,4 +1,5 @@
 import React from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { CookiesProvider } from 'react-cookie';
 import './styles/App.css';
 import {
@@ -11,6 +12,7 @@ import CardDetails from './components/card/CardDetails';
 import CardUpdate from './components/card/CardUpdate';
 import CardProvider from './components/providers/CardProvider';
 import Home from './components/Home';
+import Login from './components/helpers/Login';
 import ProtectedRoute from './components/helpers/ProtectedRoute';
 
 function App() {
@@ -41,8 +43,8 @@ function App() {
             />
             <Route
               exact
-              path="/login"
-              render={() => <div>login</div>} // redirect to /main i pobranie usera(czyli roli)
+              path="/"
+              render={() => <Login/>} // redirect to /main i pobranie usera(czyli roli)
             />
           </Switch>
         </Router>

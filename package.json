@@ -4,6 +4,9 @@
   "homepage": "https://wasikm04.github.io/medfiles",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.5.0",
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
     "gh-pages": "^2.1.1",
     "react": "^16.10.2",
     "react-cookie": "^4.0.1",

@@ -1,27 +1,27 @@
 import React, { Component } from 'react'
 
-const CardContext = React.createContext()
+export const CardContext = React.createContext();
 
 export const CardConsumer = CardContext.Consumer
 
 class CardProvider extends Component {
   state = {
     card: {
-      "_id": "5d989a28c2dada016c30fbf0",
-      "_user_mail": "userNew@pw.pl",
-      "_user_id": "5d989a0fc2dada016c30fbef",
-      "first_name": "Jan",
-      "last_name": "Kowalski",
-      "dateBirth": "2003-04-29",
+      "_id": "",
+      "_user_mail": "",
+      "_user_id": "",
+      "first_name": "",
+      "last_name": "",
+      "dateBirth": "",
       "sex": "m",
-      "address": "Warszawa 20-400 ul. Pierwsza 12",
-      "phoneNumber": "512512512",
-      "insuranceType": "1241221",
+      "address": "",
+      "phoneNumber": "",
+      "insuranceType": "",
       "prescriptions": [],
       "medicalTests": [],
       "referrals": [],
       "treatments": [],
-      "pesel": "97042907194"
+      "pesel": ""
     },
     isDoctor: false, 
     doctorCard:{},

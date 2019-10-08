@@ -13,6 +13,7 @@ class Login extends Component {
             username: "",
             password: ""
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     validateForm() {
@@ -27,72 +28,43 @@ class Login extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const body = { username: this.state.username, password: this.state.password }
+        var formData = new FormData();
+        formData.append('username', this.state.username);
+        formData.append('password', this.state.password);
+        const axios = require('axios');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
 
+        axios.post('/login', formData, config)
+            .then((response) => {
+                console.log(response);
 
-        fetch("/login")
-            .then(res => res.json())
-            .then(json => this.setState({ contacts: json.results }));
-
-             /*
-        axios.get('http://localhost:8080/card/userNew@pw.pl', { withCredentials: true })
-            .then(function (response) {
-                this.props.updateCard({ card: response })
+                axios.get('/user/role/' + this.state.username + '/', { withCredentials: true })
+                    .then((response) => {
+                        //const [cookies, setCookie, removeCookie] = useCookies(['SESSION']);
+                        console.log(response);
+                        
+                        var tr = response.data;
+                        var bool = response.data.includes("ROLE_DOCTOR") ? true : false ;
+                        this.props.updateCard({
+                            isDoctor: bool, //dodać warunek na podstawie response
+                            isAuthenticated: true,
+                            user: this.state.username
+                        });
+                        this.setState({password:''});
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
             })
-
-
-
-        if (body != null) {
-
-            var formData = new FormData();
-            formData.append('username', this.state.username);
-            formData.append('password', this.state.password);
-
-
-            try {
-                const response = fetch('/login', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-                const json = response.json();
-                console.log('Success:', JSON.stringify(json));
-            } catch (error) {
-                console.error('Error:', error);
-            }
-
-           
-                        axios.post('/login', { body })
-                            .then(function (response) {
-                                this.props.updateCard({
-                                    isAuthenticated: true,
-                                    user: this.state.username
-            
-                                })
-                                const updatedCard = { isAuthenticated: true }
-                                this.props.updateCard(updatedCard)
-            
-                                axios.get('/user' + this.state.username, { withCredentials: true })
-                                    .then(function (response) {
-                                        const [cookies, setCookie, removeCookie] = useCookies(['SESSION']);
-                                        this.props.updateCard({ isDoctor: false })
-                                    })
-                                    .catch(function (error) {
-                                        // handle error
-                                        console.log(error);
-                                    })
-                            })
-                            .catch(function (error) {
-                                // handle error
-                                console.log(error);
-                            })
-        }*/
     }
 
     render() {
@@ -128,6 +100,7 @@ class Login extends Component {
                 </div >
             );
         }
+
     }
 }
 

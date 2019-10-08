@@ -3,7 +3,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { CookiesProvider } from 'react-cookie';
 import './styles/App.css';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch
 } from 'react-router-dom'
@@ -11,6 +11,7 @@ import NavigationBar from './components/NavigationBar';
 import CardDetails from './components/card/CardDetails';
 import CardUpdate from './components/card/CardUpdate';
 import CardProvider from './components/providers/CardProvider';
+import CardConsumer from './components/providers/CardProvider';
 import Home from './components/Home';
 import Login from './components/helpers/Login';
 import ProtectedRoute from './components/helpers/ProtectedRoute';
@@ -19,35 +20,36 @@ function App() {
   return (
     <CookiesProvider>
       <CardProvider>
-        <Router>
+        <BrowserRouter>
           <NavigationBar />
           <Switch>
             <ProtectedRoute
               exact
-              path="/main"
-              render={() => <Home />}/>
+              path="/home"
+              component={() => <Home />}
+            />
             <ProtectedRoute
               exact
               path="/appointments"
-              render={() => <div>Wizyty</div>}
+              component={() => <div>Wizyty</div>}
             />
             <ProtectedRoute
               exact
               path="/profile"
-              render={() => <CardDetails />}
+              component={() => <CardDetails />}
             />
             <ProtectedRoute
               exact
               path="/profile-update"
-              render={() => <CardUpdate />}
+              component={() => <CardUpdate />}
             />
             <Route
               exact
               path="/"
-              render={() => <Login/>} // redirect to /main i pobranie usera(czyli roli)
+              render={() => <Login />} // redirect to /main i pobranie usera(czyli roli)
             />
           </Switch>
-        </Router>
+        </BrowserRouter>
       </CardProvider>
     </CookiesProvider>
   );

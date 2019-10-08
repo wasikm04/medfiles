@@ -7,14 +7,11 @@ const CardDetails = () => (
     {({ card}) => (
           <div>
             <div>
-              <p>Imię: {card.first_name}</p>
-              <p>Nazwisko: {card.last_name}</p>
-              <p>mail: {card._user_mail}</p>
-              <p>id: {card._id}</p>
+              <p>Karta: {card}</p>
             </div>
             <Link to="/profile-update">Aktualizacja karty</Link>
           </div>
     )}
   </CardConsumer>
-)
+) //cos tu nie tak bo strzela do bazy
 export default CardDetails

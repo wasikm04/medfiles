@@ -13,10 +13,11 @@ class Home extends Component {
 
   constructor(props) {
     super(props);
-    const { cookies } = props;
+    //const { cookies } = props;
   }
 
   async componentDidMount() {
+    const axios = require('axios');
     if (this.state.isDoctor) {
       axios.get('/doctor-card/' + this.state.username, { withCredentials: true })
         .then(function (response) {
@@ -27,7 +28,7 @@ class Home extends Component {
           console.log(error);
         })
     } else {
-      axios.get('/card/' + this.stateusername, { withCredentials: true })
+      axios.get('/card/' + this.state.username +'/', { withCredentials: true })
         .then(function (response) {
           this.props.updateCard({ card: response })
         })
@@ -42,7 +43,7 @@ class Home extends Component {
     return (
       <div>
         user:
-        {this.state.card}
+        {console.log(this.state.card)}
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { CardConsumer, CardContext } from '../providers/CardProvider';
+import { CardContext } from '../providers/CardProvider';
 import {
     Route,
     Redirect

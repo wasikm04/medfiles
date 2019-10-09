@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component }  from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { CookiesProvider } from 'react-cookie';
+import { withCookies } from 'react-cookie';
 import './styles/App.css';
 import {
   BrowserRouter,
@@ -11,14 +11,15 @@ import NavigationBar from './components/NavigationBar';
 import CardDetails from './components/card/CardDetails';
 import CardUpdate from './components/card/CardUpdate';
 import CardProvider from './components/providers/CardProvider';
-import CardConsumer from './components/providers/CardProvider';
 import Home from './components/Home';
 import Login from './components/helpers/Login';
 import ProtectedRoute from './components/helpers/ProtectedRoute';
 
-function App() {
-  return (
-    <CookiesProvider>
+class App extends Component {
+  //const [cookies, setCookie] = useCookies(['SESSION']);
+  render() {
+    return (
+      //<CookiesProvider>
       <CardProvider>
         <BrowserRouter>
           <NavigationBar />
@@ -46,13 +47,14 @@ function App() {
             <Route
               exact
               path="/"
-              render={() => <Login />} // redirect to /main i pobranie usera(czyli roli)
+              render={() => <Login cookies={this.props.cookies} />}
             />
           </Switch>
         </BrowserRouter>
       </CardProvider>
-    </CookiesProvider>
-  );
+      // </CookiesProvider>
+    );
+  }
 }
 
-export default App;
+export default withCookies(App);

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { FormControl, Button, InputLabel, Input } from '@material-ui/core';
-import { axios } from 'axios';
-import { withCookies, useCookies } from "react-cookie";
 import { Redirect } from 'react-router-dom'
 import { CardConsumer } from '../providers/CardProvider'
 
@@ -17,13 +15,41 @@ class Login extends Component {
     }
 
     validateForm() {
-        return this.state.email.length > 0 && this.state.password.length > 0;
+        return this.state.username.length > 0 && this.state.password.length > 0;
     }
 
     handleChange = event => {
         this.setState({
             [event.target.id]: event.target.value
         });
+    }
+
+    componentDidMount() {
+        const { cookies } = this.props;
+        if (cookies.get("SESSION") != null) {
+            let username = localStorage.getItem("username");
+            if (username != null) {
+                const axios = require('axios');
+                axios.get('/user/role/' + username + '/', { withCredentials: true })
+                    .then((response) => {
+                        if(response.data.includes("ROLE_USER")){
+                        var bool = response.data.includes("ROLE_DOCTOR") ? true : false;
+                        this.props.updateCard({
+                            isDoctor: bool,
+                            isAuthenticated: true,
+                            user: username
+                        });
+                        this.setState({
+                            isAuthenticated: true
+                        });
+                    }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+            }
+        }
     }
 
     handleSubmit = event => {
@@ -40,21 +66,19 @@ class Login extends Component {
 
         axios.post('/login', formData, config)
             .then((response) => {
-                console.log(response);
-
                 axios.get('/user/role/' + this.state.username + '/', { withCredentials: true })
                     .then((response) => {
-                        //const [cookies, setCookie, removeCookie] = useCookies(['SESSION']);
-                        console.log(response);
-                        
-                        var tr = response.data;
-                        var bool = response.data.includes("ROLE_DOCTOR") ? true : false ;
+                        var bool = response.data.includes("ROLE_DOCTOR") ? true : false;
                         this.props.updateCard({
-                            isDoctor: bool, //dodać warunek na podstawie response
+                            isDoctor: bool,
                             isAuthenticated: true,
                             user: this.state.username
                         });
-                        this.setState({password:''});
+                        this.setState({
+                            password: '',
+                            isAuthenticated: true
+                        });
+                        localStorage.setItem("username", this.state.username);
                     })
                     .catch(function (error) {
                         // handle error
@@ -93,7 +117,7 @@ class Login extends Component {
                                 onChange={this.handleChange} />
                         </FormControl>
                         <Button
-                            //disabled={!this.validateForm()}
+                            // disabled={!this.validateForm()}
                             type="submit"
                         >Zaloguj</Button>
                     </form>
@@ -119,4 +143,4 @@ const ConnectedLogin = props => (
 )
 
 
-export default ConnectedLogin
+export default ConnectedLogin;

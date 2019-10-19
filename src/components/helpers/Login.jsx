@@ -32,7 +32,7 @@ class Login extends Component {
                 const axios = require('axios');
                 axios.get('/user/role/' + username + '/', { withCredentials: true })
                     .then((response) => {
-                        if(response.data.includes("ROLE_USER")){
+                       // if(response.data.includes("ROLE_USER")){
                         var bool = response.data.includes("ROLE_DOCTOR") ? true : false;
                         this.props.updateCard({
                             isDoctor: bool,
@@ -42,7 +42,7 @@ class Login extends Component {
                         this.setState({
                             isAuthenticated: true
                         });
-                    }
+                   // }
                     })
                     .catch(function (error) {
                         // handle error

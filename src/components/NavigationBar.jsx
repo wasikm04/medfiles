@@ -9,12 +9,12 @@ const NavigationBar = () => (
         {isAuthenticated ?
           <div>
             <Link to="/home">Strona główna</Link>
-            <Link to="/profile">Karta pacjenta</Link>
+            {isDoctor ?
+              <Link to="/doctor-card">Karta lekarza</Link> :
+              <Link to="/profile">Karta pacjenta</Link>
+            }
             <Link to="/appointments">Wizyty</Link>
             <Link to="/logout">Wyloguj</Link>
-            {isDoctor ?
-              <Link to="/doctor-card">Karta lekarza</Link>
-              : null}
           </div>
           : null}
       </div>

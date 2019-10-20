@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { withCookies } from 'react-cookie';
 import './styles/App.css';
@@ -19,15 +19,17 @@ import Logout from './components/helpers/Logout';
 import Appointment from './components/models/appointment/Appointment';
 import Register from './components/helpers/Register';
 import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
 
 const drawerWidth = 240;
 
 const useStyles = {
   appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      marginTop: 25
-  }};
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    marginTop: 25
+  }
+};
 
 class App extends Component {
   render() {
@@ -37,55 +39,68 @@ class App extends Component {
         <BrowserRouter>
           <PermanentDrawerLeft />
           <Grid
-                container
-                spacing={2}
-                direction="column"
-                alignItems="center"
-                justify="center"
-                style={useStyles.appBar}
-            >
-          <Switch>
-            <ProtectedRoute
-              exact
-              path="/home"
-              component={() => <Home/>}
-            />
-            <ProtectedRoute
-              exact
-              path="/appointments"
-              component={() => <Appointment/>}
-            />
-            <ProtectedRoute
-              exact
-              path="/profile"
-              component={() => <CardDetails/>}
-            />
-            <ProtectedRoute
-              exact
-              path="/profile-update"
-              component={() => <CardUpdate/>}
-            />
-            <ProtectedRoute
-              exact
-              path="/logout"
-              component={() => <Logout/>}
-            />
-            <Route
-              exact
-              path="/"
-              render={() => <Typography> Witaj na stronie do zarządzania kartotekami medycznymi, zaloguj się aby zarządzać swoją kartą lub załóż konto aby utworzyć własną kartotekę</Typography>}
-            />
-            <Route
-              exact
-              path="/login"
-              render={() => <Login cookies={this.props.cookies} />}
-            />
-            <Route
-              exact
-              path="/register"
-              component={() => <Register/>}
-            />
-          </Switch>
+            container
+            spacing={2}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={useStyles.appBar}
+          >
+            <Switch>
+              <ProtectedRoute
+                exact
+                path="/home"
+                component={() => <Home />}
+              />
+              <ProtectedRoute
+                exact
+                path="/appointments"
+                component={() => <Appointment />}
+              />
+              <ProtectedRoute
+                exact
+                path="/profile"
+                component={() => <CardDetails />}
+              />
+              <ProtectedRoute
+                exact
+                path="/profile-update"
+                component={() => <CardUpdate />}
+              />
+              <ProtectedRoute
+                exact
+                path="/logout"
+                component={() => <Logout />}
+              />
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  <Grid item xs={6}
+                    direction="columns"
+                    justify="center"
+                    alignItems="center">
+                    <Card>
+                      <Typography
+                        variant="h5"
+                        component="h2"
+                        align="center"
+                        paragraph>
+                        Witaj na stronie do zarządzania kartotekami medycznymi, zaloguj się aby zarządzać swoją kartą lub załóż konto aby utworzyć własną kartotekę
+                      </Typography>
+                    </Card>
+                  </Grid>} />
+              <Route
+                exact
+                path="/login"
+                render={() => <Login cookies={this.props.cookies} />}
+              />
+              <Route
+                exact
+                path="/register"
+                component={() => <Register />}
+              />
+            </Switch>
           </Grid>
         </BrowserRouter>
       </CardProvider>

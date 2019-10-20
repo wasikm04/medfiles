@@ -17,6 +17,7 @@ import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
 import AssignmentIndRoundedIcon from '@material-ui/icons/AssignmentIndRounded';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { CardContext } from './providers/CardProvider';
+import Container from '@material-ui/core/Container';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -65,12 +66,12 @@ export default function PermanentDrawerLeft() {
                     paper: classes.drawerPaper,
                 }}
                 anchor="left">
-                <Link to="/" color="textPrimary">
-                    <div className={classes.toolbar}>
-                        <Typography className={classes.colour} variant="h4" align="center" justify="center">
-                            Kartoteki Medyczne
+                <Link className={classes.colour} to="/" color="textPrimary">
+                    <Container className={classes.toolbar} >
+                        <Typography  variant="h4" align="center" justify="center">
+                           znaczek _ MedFiles
                         </Typography>
-                    </div>
+                    </Container>
                 </Link>
                 <Divider />
                 {isAuthenticated ?

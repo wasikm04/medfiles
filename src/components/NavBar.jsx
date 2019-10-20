@@ -17,7 +17,6 @@ import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
 import AssignmentIndRoundedIcon from '@material-ui/icons/AssignmentIndRounded';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { CardContext } from './providers/CardProvider';
-import Container from '@material-ui/core/Container';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -66,12 +65,12 @@ export default function PermanentDrawerLeft() {
                     paper: classes.drawerPaper,
                 }}
                 anchor="left">
-                <Link className={classes.colour} to="/" color="textPrimary">
-                    <Container className={classes.toolbar} >
-                        <Typography  variant="h4" align="center" justify="center">
-                           znaczek _ MedFiles
+                <Link className={classes.colour}  to="/" color="textPrimary">
+                    <div className={classes.toolbar} >
+                        <Typography className={classes.toolbar}  variant="h4" align="center" justify="center">
+                           MedFiles
                         </Typography>
-                    </Container>
+                    </div>
                 </Link>
                 <Divider />
                 {isAuthenticated ?
@@ -83,7 +82,7 @@ export default function PermanentDrawerLeft() {
                             </ListItem>
                         </Link>
                         {isDoctor ?
-                            <Link to="/profile" color="textPrimary">
+                            <Link to="/card" color="textPrimary">
                                 <ListItem button >
                                     <ListItemIcon><DescriptionRoundedIcon /></ListItemIcon>
                                     <ListItemText secondary={"Karta Pacjenta"} />

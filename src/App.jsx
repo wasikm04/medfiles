@@ -10,6 +10,7 @@ import {
 import PermanentDrawerLeft from './components/NavBar';
 import CardDetails from './components/card/CardDetails';
 import CardUpdate from './components/card/CardUpdate';
+import DoctorCard from './components/card/DoctorCard';
 import CardProvider from './components/providers/CardProvider';
 import Home from './components/Home';
 import Login from './components/helpers/Login';
@@ -57,17 +58,22 @@ class App extends Component {
                 path="/appointments"
                 component={() => <Appointment />}
               />
-              <ProtectedRoute
+              <Route
                 exact
-                path="/profile"
+                path="/doctor-card"
+                component={() => <DoctorCard />}
+              />
+              <Route
+                exact
+                path="/card"
                 component={() => <CardDetails />}
               />
-              <ProtectedRoute
+              <Route
                 exact
-                path="/profile-update"
+                path="/card/update"
                 component={() => <CardUpdate />}
               />
-              <ProtectedRoute
+              <Route
                 exact
                 path="/logout"
                 component={() => <Logout />}
@@ -76,7 +82,7 @@ class App extends Component {
                 exact
                 path="/"
                 render={() =>
-                  <Grid item xs={6}
+                  <Grid item xs={4}
                     direction="columns"
                     justify="center"
                     alignItems="center">
@@ -86,7 +92,7 @@ class App extends Component {
                         component="h2"
                         align="center"
                         paragraph>
-                        Witaj na stronie do zarządzania kartotekami medycznymi, zaloguj się aby zarządzać swoją kartą lub załóż konto aby utworzyć własną kartotekę
+                        Witaj na stronie do zarządzania kartotekami medycznymi, zaloguj się aby uzyskać dostęp do kartoteki lub załóż konto aby utworzyć własną kartę.
                       </Typography>
                     </Card>
                   </Grid>} />

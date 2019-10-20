@@ -18,6 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import Logout from './components/helpers/Logout';
 import Appointment from './components/models/appointment/Appointment';
 import Register from './components/helpers/Register';
+import Typography from '@material-ui/core/Typography';
 
 const drawerWidth = 240;
 
@@ -68,6 +69,11 @@ class App extends Component {
               exact
               path="/logout"
               component={() => <Logout/>}
+            />
+            <Route
+              exact
+              path="/"
+              render={() => <Typography> Witaj na stronie do zarządzania kartotekami medycznymi, zaloguj się aby zarządzać swoją kartą lub załóż konto aby utworzyć własną kartotekę</Typography>}
             />
             <Route
               exact

@@ -29,10 +29,11 @@ const useStyles = makeStyles(theme => ({
     },
     drawer: {
         width: drawerWidth,
-        flexShrink: 0,
+        flexShrink: 0
     },
     drawerPaper: {
         width: drawerWidth,
+        background: 'rgb(232,232,232)',
     },
     toolbar: theme.mixins.toolbar,
     content: {
@@ -41,10 +42,14 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(3),
     },
     colour: {
-        backgroundColor: "Navy",
+        background: 'indigo',
         color: "white"
+    },
+    back: {
+        background: 'rgb(128,128,128)'
     }
 }));
+
 
 export default function PermanentDrawerLeft() {
     const classes = useStyles();
@@ -60,11 +65,13 @@ export default function PermanentDrawerLeft() {
                     paper: classes.drawerPaper,
                 }}
                 anchor="left">
-                <div className={classes.toolbar}>
-                    <Typography className={classes.colour} variant="h4" align="center">
-                        Kartoteki Medyczne
-                </Typography>
-                </div>
+                <Link to="/" color="textPrimary">
+                    <div className={classes.toolbar}>
+                        <Typography className={classes.colour} variant="h4" align="center" justify="center">
+                            Kartoteki Medyczne
+                        </Typography>
+                    </div>
+                </Link>
                 <Divider />
                 {isAuthenticated ?
                     <List>
@@ -74,19 +81,19 @@ export default function PermanentDrawerLeft() {
                                 <ListItemText secondary={"Strona Główna"} />
                             </ListItem>
                         </Link>
-                        {isDoctor?
-                        <Link to="/profile" color="textPrimary">
-                            <ListItem button >
-                                <ListItemIcon><DescriptionRoundedIcon /></ListItemIcon>
-                                <ListItemText secondary={"Karta Pacjenta"} />
-                            </ListItem>
-                        </Link>:
-                        <Link to="/doctor-card" color="textPrimary">
-                            <ListItem button >
-                                <ListItemIcon><AssignmentIndRoundedIcon /></ListItemIcon>
-                                <ListItemText secondary={"Karta Lekarza"} />
-                            </ListItem>
-                        </Link>
+                        {isDoctor ?
+                            <Link to="/profile" color="textPrimary">
+                                <ListItem button >
+                                    <ListItemIcon><DescriptionRoundedIcon /></ListItemIcon>
+                                    <ListItemText secondary={"Karta Pacjenta"} />
+                                </ListItem>
+                            </Link> :
+                            <Link to="/doctor-card" color="textPrimary">
+                                <ListItem button >
+                                    <ListItemIcon><AssignmentIndRoundedIcon /></ListItemIcon>
+                                    <ListItemText secondary={"Karta Lekarza"} />
+                                </ListItem>
+                            </Link>
                         }
                         <Link to="/appointments" color="textPrimary">
                             <ListItem button >
@@ -120,6 +127,6 @@ export default function PermanentDrawerLeft() {
                     </List>}
                 <Divider />
             </Drawer>
-        </div>
+        </div >
     )
 }

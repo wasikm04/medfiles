@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Login extends Component {
     constructor(props) {
@@ -13,7 +14,9 @@ class Login extends Component {
         this.state = {
             isAuthenticated: this.props.isAuthenticated,
             username: "",
-            password: ""
+            password: "",
+            isStatus: false,
+            status:''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -49,7 +52,6 @@ class Login extends Component {
                         // }
                     })
                     .catch(function (error) {
-                        // handle error
                         console.log(error);
                     })
             }
@@ -57,6 +59,7 @@ class Login extends Component {
     }
 
     handleSubmit = event => {
+        this.setState({isStatus: true});
         event.preventDefault();
         var formData = new FormData();
         formData.append('username', this.state.username);
@@ -80,17 +83,24 @@ class Login extends Component {
                         });
                         this.setState({
                             password: '',
-                            isAuthenticated: true
+                            isAuthenticated: true,
+                            isStatus: false
                         });
                         localStorage.setItem("username", this.state.username);
                     })
                     .catch(function (error) {
-                        // handle error
+                        this.setState({
+                            status: "Pobranie roli użytkownika nieudane " + error,
+                            isStatus: false
+                        });
                         console.log(error);
                     })
             })
             .catch(function (error) {
-                // handle error
+                this.setState({
+                    status: "Logowanie nieudane " + error,
+                    isStatus: false
+                });
                 console.log(error);
             })
     }
@@ -124,12 +134,16 @@ class Login extends Component {
                             required
                             fullWidth
                             name="password"
-                            label="hasło"
+                            label="Hasło"
                             type="password"
                             id="password"
                             autoComplete="Wpisz hasło"
                             onChange={this.handleChange}
                         />
+                        {this.state.isStatus ?
+                        <Typography variant="h4" component="h3" align="center" margin="normal">
+                            <CircularProgress align="center" />
+                        </Typography> :
                         <Button
                             disabled={!this.validateForm()}
                             type="submit"
@@ -137,9 +151,12 @@ class Login extends Component {
                             color="primary"
                             variant="contained"
                         >Zaloguj</Button>
+                        }
                     </form>
+                    <Typography variant="h4" component="h3" align="center" margin="normal">
+                        {this.state.status}
+                    </Typography>
                 </Container>
-
             );
         }
 

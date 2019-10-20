@@ -23,11 +23,11 @@ class CardProvider extends Component {
       "treatments": [],
       "pesel": ""
     },
+    isAuthenticated: false,
     isDoctor: false, 
     doctorCard:{},
     user: "",
-    updateCard: updatedCard => this.updateCard(updatedCard),
-    isAuthenticated: false
+    updateCard: updatedCard => this.updateCard(updatedCard)
   }
 
 updateCard = updatedCard => {

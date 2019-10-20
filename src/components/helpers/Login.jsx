@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { FormControl, Button, InputLabel, Input } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { Redirect } from 'react-router-dom'
 import { CardConsumer } from '../providers/CardProvider'
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 
 class Login extends Component {
     constructor(props) {
@@ -32,7 +36,7 @@ class Login extends Component {
                 const axios = require('axios');
                 axios.get('/user/role/' + username + '/', { withCredentials: true })
                     .then((response) => {
-                       // if(response.data.includes("ROLE_USER")){
+                        // if(response.data.includes("ROLE_USER")){
                         var bool = response.data.includes("ROLE_DOCTOR") ? true : false;
                         this.props.updateCard({
                             isDoctor: bool,
@@ -42,7 +46,7 @@ class Login extends Component {
                         this.setState({
                             isAuthenticated: true
                         });
-                   // }
+                        // }
                     })
                     .catch(function (error) {
                         // handle error
@@ -96,32 +100,46 @@ class Login extends Component {
             return (<Redirect to={{ pathname: '/home', state: { from: this.props.location } }} />);
         } else {
             return (
-                < div className="Login" >
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
                     <form onSubmit={this.handleSubmit}>
-                        <FormControl>
-                            <InputLabel htmlFor="username">Email</InputLabel>
-                            <Input id="username"
-                                aria-describedby="my-helper-text"
-                                autoFocus
-                                type="email"
-                                value={this.state.username}
-                                onChange={this.handleChange} />
-                        </FormControl>
-                        <FormControl>
-                            <InputLabel htmlFor="password">Hasło</InputLabel>
-                            <Input id="password"
-                                aria-describedby="my-helper-text"
-                                autoFocus
-                                type="password"
-                                value={this.state.password}
-                                onChange={this.handleChange} />
-                        </FormControl>
+                        <Typography align="center" component="h1" variant="h5">
+                            Logowanie
+                         </Typography>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Email "
+                            name="email"
+                            autoComplete="Adres email"
+                            autoFocus
+                            onChange={this.handleChange}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="hasło"
+                            type="password"
+                            id="password"
+                            autoComplete="Wpisz hasło"
+                            onChange={this.handleChange}
+                        />
                         <Button
-                            // disabled={!this.validateForm()}
+                            disabled={!this.validateForm()}
                             type="submit"
+                            fullWidth
+                            color="primary"
+                            variant="contained"
                         >Zaloguj</Button>
                     </form>
-                </div >
+                </Container>
+
             );
         }
 

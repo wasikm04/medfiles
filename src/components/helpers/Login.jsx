@@ -53,6 +53,7 @@ class Login extends Component {
                     })
                     .catch(function (error) {
                         console.log(error);
+                        alert(error);
                     })
             }
         }
@@ -93,6 +94,7 @@ class Login extends Component {
                             status: "Pobranie roli użytkownika nieudane " + error,
                             isStatus: false
                         });
+                        alert(error);
                         console.log(error);
                     })
             })
@@ -101,6 +103,7 @@ class Login extends Component {
                     status: "Logowanie nieudane " + error,
                     isStatus: false
                 });
+                alert(error);
                 console.log(error);
             })
     }

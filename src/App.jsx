@@ -19,8 +19,7 @@ import Grid from '@material-ui/core/Grid';
 import Logout from './components/helpers/Logout';
 import Appointment from './components/models/appointment/Appointment';
 import Register from './components/helpers/Register';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
+import Welcome from './components/helpers/Welcome';
 
 const drawerWidth = 240;
 
@@ -28,7 +27,8 @@ const useStyles = {
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    marginTop: 25
+    marginTop: 25,
+    background: 'rgb(249, 249, 252)'
   }
 };
 
@@ -58,44 +58,31 @@ class App extends Component {
                 path="/appointments"
                 component={() => <Appointment />}
               />
-              <Route
+              <ProtectedRoute
                 exact
                 path="/doctor-card"
                 component={() => <DoctorCard />}
               />
-              <Route
+              <ProtectedRoute
                 exact
                 path="/card"
                 component={() => <CardDetails />}
               />
-              <Route
+              <ProtectedRoute
                 exact
                 path="/card/update"
                 component={() => <CardUpdate />}
               />
-              <Route
+              <ProtectedRoute
                 exact
                 path="/logout"
-                component={() => <Logout />}
+                component={() => <Logout cookies={this.props.cookies}/>}
               />
               <Route
                 exact
                 path="/"
-                render={() =>
-                  <Grid item xs={4}
-                    direction="columns"
-                    justify="center"
-                    alignItems="center">
-                    <Card>
-                      <Typography
-                        variant="h5"
-                        component="h2"
-                        align="center"
-                        paragraph>
-                        Witaj na stronie do zarządzania kartotekami medycznymi, zaloguj się aby uzyskać dostęp do kartoteki lub załóż konto aby utworzyć własną kartę.
-                      </Typography>
-                    </Card>
-                  </Grid>} />
+                component={() => <Welcome/>} 
+                />
               <Route
                 exact
                 path="/login"

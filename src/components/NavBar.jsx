@@ -33,7 +33,8 @@ const useStyles = makeStyles(theme => ({
     },
     drawerPaper: {
         width: drawerWidth,
-        background: 'rgb(232,232,232)',
+        background: 'rgb(24, 32, 44)',
+        colour: 'rgb(238, 238, 238)'
     },
     toolbar: theme.mixins.toolbar,
     content: {
@@ -42,11 +43,13 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(3),
     },
     colour: {
-        background: 'indigo',
-        color: "white"
+        background: 'rgb(35, 47, 62)',
+        color: "white",
+        textDecoration: 'none',
     },
-    back: {
-        background: 'rgb(128,128,128)'
+    link: {
+        textDecoration: 'none',
+        color: 'rgb(238, 238, 238)'
     }
 }));
 
@@ -65,9 +68,9 @@ export default function PermanentDrawerLeft() {
                     paper: classes.drawerPaper,
                 }}
                 anchor="left">
-                <Link className={classes.colour}  to="/" color="textPrimary">
+                <Link className={classes.colour} to="/">
                     <div className={classes.toolbar} >
-                        <Typography className={classes.toolbar}  variant="h4" align="center" justify="center">
+                        <Typography className={classes.toolbar}  variant="h4" align="center" justify="center">         
                            MedFiles
                         </Typography>
                     </div>
@@ -75,53 +78,53 @@ export default function PermanentDrawerLeft() {
                 <Divider />
                 {isAuthenticated ?
                     <List>
-                        <Link to="/home" color="textPrimary">
-                            <ListItem button >
-                                <ListItemIcon><DashboardIcon /></ListItemIcon>
-                                <ListItemText secondary={"Strona Główna"} />
+                        <Link to="/home">
+                            <ListItem button  className={classes.link}>
+                                <ListItemIcon  className={classes.link}><DashboardIcon /></ListItemIcon>
+                                <ListItemText primary={"Strona Główna"} />
                             </ListItem>
                         </Link>
                         {isDoctor ?
-                            <Link to="/card" color="textPrimary">
-                                <ListItem button >
-                                    <ListItemIcon><DescriptionRoundedIcon /></ListItemIcon>
-                                    <ListItemText secondary={"Karta Pacjenta"} />
+                            <Link to="/card">
+                                <ListItem button  className={classes.link}>
+                                    <ListItemIcon  className={classes.link}><DescriptionRoundedIcon /></ListItemIcon>
+                                    <ListItemText primary={"Karta Pacjenta"} />
                                 </ListItem>
                             </Link> :
-                            <Link to="/doctor-card" color="textPrimary">
-                                <ListItem button >
-                                    <ListItemIcon><AssignmentIndRoundedIcon /></ListItemIcon>
-                                    <ListItemText secondary={"Karta Lekarza"} />
+                            <Link to="/doctor-card">
+                                <ListItem button  className={classes.link}>
+                                    <ListItemIcon  className={classes.link}><AssignmentIndRoundedIcon /></ListItemIcon>
+                                    <ListItemText primary={"Karta Lekarza"} />
                                 </ListItem>
                             </Link>
                         }
-                        <Link to="/appointments" color="textPrimary">
-                            <ListItem button >
-                                <ListItemIcon><EventRoundedIcon /></ListItemIcon>
-                                <ListItemText secondary={"Wizyty"} />
+                        <Link to="/appointments">
+                            <ListItem button  className={classes.link}>
+                                <ListItemIcon className={classes.link}><EventRoundedIcon /></ListItemIcon>
+                                <ListItemText primary={"Wizyty"} />
                             </ListItem>
                         </Link>
 
                         <Divider />
-                        <Link to="/logout" color="textPrimary">
-                            <ListItem button >
-                                <ListItemIcon><ExitToAppRoundedIcon /></ListItemIcon>
-                                <ListItemText secondary={"Wyloguj"} />
+                        <Link to="/logout">
+                            <ListItem button className={classes.link}>
+                                <ListItemIcon className={classes.link}><ExitToAppRoundedIcon /></ListItemIcon>
+                                <ListItemText primary={"Wyloguj"} />
                             </ListItem>
                         </Link>
                     </List>
                     :
                     <List>
-                        <Link to="/login" color="textPrimary">
-                            <ListItem button >
-                                <ListItemIcon><LockOpenIcon /></ListItemIcon>
-                                <ListItemText secondary={"Logowanie"} />
+                        <Link to="/login" >
+                            <ListItem button className={classes.link}>
+                                <ListItemIcon className={classes.link}><LockOpenIcon /></ListItemIcon>
+                                <ListItemText  primary={"Logowanie"} />
                             </ListItem>
                         </Link>
-                        <Link to="/register" color="textPrimary">
-                            <ListItem button >
-                                <ListItemIcon><NoteAddRoundedIcon /></ListItemIcon>
-                                <ListItemText secondary={"Rejestracja"} />
+                        <Link to="/register">
+                            <ListItem button className={classes.link}>
+                                <ListItemIcon className={classes.link}><NoteAddRoundedIcon /></ListItemIcon>
+                                <ListItemText primary={"Rejestracja"} />
                             </ListItem>
                         </Link>
                     </List>}

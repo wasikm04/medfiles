@@ -1,13 +1,25 @@
 import React from "react";
 import { Redirect } from 'react-router-dom'
+import { CardConsumer } from '../providers/CardProvider'
 
-//
-//cookies clear();
-const Logout = () => {
-    const { cookies } = this.props;
-    cookies.removeCookie("SESSION");
+const Logout = (props) => {
+    const { cookies } = props;
+    cookies.remove("SESSION");
     localStorage.clear();
+    props.updateCard({isAuthenticated: false})
     return (<Redirect to={{ pathname: '/'}} />);
   };
 
-  export default Logout;
+
+  const ConnectedLogout = props => (
+    <CardConsumer>
+        {({ updateCard }) => (
+            <Logout
+                {...props}
+                updateCard={updateCard}
+            />
+        )}
+    </CardConsumer>
+)
+
+  export default ConnectedLogout;

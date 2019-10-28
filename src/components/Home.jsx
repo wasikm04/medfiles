@@ -8,17 +8,16 @@ class Home extends Component {
     this.state = {
       username: this.props.user,
       isAuthenticated: this.props.isAuthenticated,
-      card: {},
-      doctorCard: this.props.doctorCard
+      isDoctor: this.props.isDoctor
     };
   }
 
   getCard() {
     const axios = require('axios');
     axios.get('/card/' + this.state.username + '/', { withCredentials: true })
-      .then(response => response.json())
-      .then(function (response) {
-        this.setState({ card: response })
+      .then( (response)  =>{
+        console.log(response.data);
+        this.props.updateCard({ card: response.data })
       })
       .catch(function (error) {
         alert(error);
@@ -28,42 +27,40 @@ class Home extends Component {
 
   getDoctorCard() {
     const axios = require('axios');
-    axios.get('/doctor-card/' + this.state.card.data._user_id, { withCredentials: true })
-      .then(response => response.json())
-      .then(function (response) {
-        this.props.updateCard({ doctorCard: response })
+    axios.get('/doctor-card/' + this.state.username, { withCredentials: true })
+      .then((response) => {
+        console.log(response.data);
+        this.props.updateCard({ doctorCard: response.data })
       })
       .catch(function (error) {
         alert(error);
         console.log(error);
       })
   }
+
   componentDidMount() {
     if (this.state.isDoctor) {
       this.getDoctorCard()
     } else {
       this.getCard()
     }
-    this.props.updateCard({ card: this.state.card });
   }
 
   render() {
     return (
       <div>
-        user:
-        {console.log(this.state.card)}
+        <h2>Witaj {this.state.username}!</h2>
       </div>
     );
   }
 }
 const ConnectedHome = props => (
   <CardConsumer>
-    {({ isAuthenticated, user, doctorCard, isDoctor, updateCard }) => (
+    {({ isAuthenticated,updateCard , user, isDoctor  }) => (
       <Home
         {...props}
         isAuthenticated={isAuthenticated}
         user={user}
-        doctorCard={doctorCard}
         isDoctor={isDoctor}
         updateCard={updateCard}
       />

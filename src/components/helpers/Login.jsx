@@ -19,6 +19,7 @@ class Login extends Component {
             status:''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getRole = this.getRole.bind(this);
     }
 
     validateForm() {
@@ -31,15 +32,11 @@ class Login extends Component {
         });
     }
 
-    componentDidMount() {
-        const { cookies } = this.props;
-        if (cookies.get("SESSION") != null) {
-            let username = localStorage.getItem("username");
-            if (username != null) {
-                const axios = require('axios');
+    getRole(username){
+        const axios = require('axios');
                 axios.get('/user/role/' + username + '/', { withCredentials: true })
                     .then((response) => {
-                        // if(response.data.includes("ROLE_USER")){
+                        if(response.data.includes("ROLE_USER")){
                         var bool = response.data.includes("ROLE_DOCTOR") ? true : false;
                         this.props.updateCard({
                             isDoctor: bool,
@@ -49,13 +46,19 @@ class Login extends Component {
                         this.setState({
                             isAuthenticated: true
                         });
-                        // }
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);
                         alert(error);
                     })
-            }
+    }
+
+    componentDidMount() {  
+        const { cookies } = this.props;
+        let username = localStorage.getItem("username");
+        if (cookies.get("SESSION") != null && username != null) {
+               this.getRole(username); 
         }
     }
 
@@ -90,6 +93,7 @@ class Login extends Component {
                         localStorage.setItem("username", this.state.username);
                     })
                     .catch(function (error) {
+                        console.log(error);
                         this.setState({
                             status: "Pobranie roli użytkownika nieudane " + error,
                             isStatus: false

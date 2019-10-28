@@ -6,16 +6,15 @@ import Card from '@material-ui/core/Card';
 const Welcome = () => {
     return (
     <Grid item xs={6}
-        direction="rows"
-        justify="center"
+        direction="row"
         alignItems="center">
         <Card>
             <Typography
-                variant="h8"
+                variant="h6"
                 component="h4"
                 align="center"
                 paragraph>
-                Witaj na stronie do zarządzania kartotekami medycznymi, zaloguj się aby uzyskać dostęp do kartoteki lub załóż konto aby utworzyć własną kartę.
+                Witaj na stronie do zarządzania kartotekami medycznymi, możesz tu dokonać przeglądu swojej karty lub umówić wizytę u lekarza.
             </Typography>
         </Card>
     </Grid>

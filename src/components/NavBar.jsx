@@ -74,8 +74,8 @@ export default function PermanentDrawerLeft() {
                 anchor="left">
                 <Link className={classes.colour} to="/">
                     <div className={classes.toolbar} >
-                        <Typography className={classes.toolbar}  variant="h4" align="center" justify="center">         
-                           MedFiles
+                        <Typography className={classes.toolbar} variant="h4" align="center" justify="center">
+                            MedFiles
                         </Typography>
                     </div>
                 </Link>
@@ -83,57 +83,60 @@ export default function PermanentDrawerLeft() {
                 {isAuthenticated ?
                     <List>
                         <Link to="/home">
-                            <ListItem button  className={classes.link}>
-                                <ListItemIcon  className={classes.link}><DashboardIcon /></ListItemIcon>
+                            <ListItem button className={classes.link}>
+                                <ListItemIcon className={classes.link}><DashboardIcon /></ListItemIcon>
                                 <ListItemText primary={"Strona Główna"} />
                             </ListItem>
                         </Link>
+                        <Divider className={classes.colour} />
                         {isDoctor ?
                             <Link to="/doctor-card">
-                                <ListItem button  className={classes.link}>
-                                    <ListItemIcon  className={classes.link}><DescriptionRoundedIcon /></ListItemIcon>
+                                <ListItem button className={classes.link}>
+                                    <ListItemIcon className={classes.link}><DescriptionRoundedIcon /></ListItemIcon>
                                     <ListItemText primary={"Karta Lekarza"} />
                                 </ListItem>
-                            </Link> :
-                            <Link to="/card">
-                                <ListItem button  className={classes.link}>
-                                    <ListItemIcon  className={classes.link}><AssignmentIndRoundedIcon /></ListItemIcon>
-                                    <ListItemText primary={"Karta Pacjenta"} />
-                                </ListItem>
                             </Link>
+                            :
+                            <div>
+                                <Link to="/card">
+                                    <ListItem button className={classes.link}>
+                                        <ListItemIcon className={classes.link}><AssignmentIndRoundedIcon /></ListItemIcon>
+                                        <ListItemText primary={"Karta Pacjenta"} />
+                                    </ListItem>
+                                </Link>
+                                <Link to="/medical-tests">
+                                    <ListItem button className={classes.link}>
+                                        <ListItemIcon className={classes.link}><FeaturedPlayListIcon /></ListItemIcon>
+                                        <ListItemText primary={"Badania"} />
+                                    </ListItem>
+                                </Link>
+                                <Link to="/prescriptions">
+                                    <ListItem button className={classes.link}>
+                                        <ListItemIcon className={classes.link}><AssessmentIcon /></ListItemIcon>
+                                        <ListItemText primary={"Recepty"} />
+                                    </ListItem>
+                                </Link>
+                                <Link to="/referrals">
+                                    <ListItem button className={classes.link}>
+                                        <ListItemIcon className={classes.link}><NoteAddIcon /></ListItemIcon>
+                                        <ListItemText primary={"Skierowania"} />
+                                    </ListItem>
+                                </Link>
+                                <Link to="/treatments">
+                                    <ListItem button className={classes.link}>
+                                        <ListItemIcon className={classes.link}><DescriptionIcon /></ListItemIcon>
+                                        <ListItemText primary={"Historia chorób"} />
+                                    </ListItem>
+                                </Link>
+                            </div>
                         }
-                        <Link to="/medical-tests">
-                            <ListItem button  className={classes.link}>
-                                <ListItemIcon className={classes.link}><FeaturedPlayListIcon /></ListItemIcon>
-                                <ListItemText primary={"Badania"} />
-                            </ListItem>
-                        </Link>
-                        <Link to="/prescriptions">
-                            <ListItem button  className={classes.link}>
-                                <ListItemIcon className={classes.link}><AssessmentIcon /></ListItemIcon>
-                                <ListItemText primary={"Recepty"} />
-                            </ListItem>
-                        </Link>
-                        <Link to="/referrals">
-                            <ListItem button  className={classes.link}>
-                                <ListItemIcon className={classes.link}><NoteAddIcon/></ListItemIcon>
-                                <ListItemText primary={"Skierowania"} />
-                            </ListItem>
-                        </Link>
-                        <Link to="/treatments">
-                            <ListItem button  className={classes.link}>
-                                <ListItemIcon className={classes.link}><DescriptionIcon /></ListItemIcon>
-                                <ListItemText primary={"Historia chorób"} />
-                            </ListItem>
-                        </Link>
                         <Link to="/appointments">
-                            <ListItem button  className={classes.link}>
+                            <ListItem button className={classes.link}>
                                 <ListItemIcon className={classes.link}><EventRoundedIcon /></ListItemIcon>
                                 <ListItemText primary={"Wizyty"} />
                             </ListItem>
                         </Link>
-
-                        <Divider className={classes.colour}/>
+                        <Divider className={classes.colour} />
                         <Link to="/logout">
                             <ListItem button className={classes.link}>
                                 <ListItemIcon className={classes.link}><ExitToAppRoundedIcon /></ListItemIcon>
@@ -146,7 +149,7 @@ export default function PermanentDrawerLeft() {
                         <Link to="/login" >
                             <ListItem button className={classes.link}>
                                 <ListItemIcon className={classes.link}><LockOpenIcon /></ListItemIcon>
-                                <ListItemText  primary={"Logowanie"} />
+                                <ListItemText primary={"Logowanie"} />
                             </ListItem>
                         </Link>
                         <Link to="/register">

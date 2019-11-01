@@ -1,0 +1,1 @@
+//lista dla pacjent i lekarza ale lekarz może dodawać po isdoctor a pacjent szukać

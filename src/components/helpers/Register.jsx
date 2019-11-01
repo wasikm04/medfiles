@@ -35,27 +35,32 @@ export default class Register extends Component {
             status: "",
             isStatus: true
         });
-        var formData = new FormData();
-        formData.append('email', this.state.email);
-        formData.append('password', this.state.password);
+        //var formData = new FormData();
+        //formData.append('email', this.state.email);
+        //formData.append('password', this.state.password);
+        var formData = {
+            email: this.state.email,
+            password: this.state.password
+        }
         const axios = require('axios');
         const config = {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json'
             }
         }
-        axios.post('/register', formData, config)
+        axios.post('/user/register', formData, config)
             .then((response) => {
                 this.setState({
                     status: "Pomyślnie dokonano rejestracji",
                     isStatus: false
                 });
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.setState({
                     status: "Rejestracja nieudana " + error,
                     isStatus: false
                 });
+                alert(error);
                 console.log(error);
             })
     }
@@ -119,7 +124,7 @@ export default class Register extends Component {
                     }
                 </form>
                 <Typography variant="h4" component="h3" align="center" margin="normal">
-                        {this.state.status}
+                    {this.state.status}
                 </Typography>
             </Container>
         )

@@ -88,22 +88,20 @@ class Login extends Component {
                         });
                         localStorage.setItem("username", this.state.username);
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         console.log(error);
                         this.setState({
                             status: "Pobranie roli użytkownika nieudane " + error,
                             isStatus: false
                         });
-                        alert(error);
                         console.log(error);
                     })
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.setState({
                     status: "Logowanie nieudane " + error,
                     isStatus: false
                 });
-                alert(error);
                 console.log(error);
             })
     }

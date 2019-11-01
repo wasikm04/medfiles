@@ -15,7 +15,11 @@ import EventRoundedIcon from '@material-ui/icons/EventRounded';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
 import AssignmentIndRoundedIcon from '@material-ui/icons/AssignmentIndRounded';
+import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
+import DescriptionIcon from '@material-ui/icons/Description';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 import { CardContext } from './providers/CardProvider';
 
 const drawerWidth = 240;
@@ -98,6 +102,30 @@ export default function PermanentDrawerLeft() {
                                 </ListItem>
                             </Link>
                         }
+                        <Link to="/medical-tests">
+                            <ListItem button  className={classes.link}>
+                                <ListItemIcon className={classes.link}><FeaturedPlayListIcon /></ListItemIcon>
+                                <ListItemText primary={"Badania"} />
+                            </ListItem>
+                        </Link>
+                        <Link to="/prescriptions">
+                            <ListItem button  className={classes.link}>
+                                <ListItemIcon className={classes.link}><AssessmentIcon /></ListItemIcon>
+                                <ListItemText primary={"Recepty"} />
+                            </ListItem>
+                        </Link>
+                        <Link to="/referrals">
+                            <ListItem button  className={classes.link}>
+                                <ListItemIcon className={classes.link}><NoteAddIcon/></ListItemIcon>
+                                <ListItemText primary={"Skierowania"} />
+                            </ListItem>
+                        </Link>
+                        <Link to="/treatments">
+                            <ListItem button  className={classes.link}>
+                                <ListItemIcon className={classes.link}><DescriptionIcon /></ListItemIcon>
+                                <ListItemText primary={"Historia chorób"} />
+                            </ListItem>
+                        </Link>
                         <Link to="/appointments">
                             <ListItem button  className={classes.link}>
                                 <ListItemIcon className={classes.link}><EventRoundedIcon /></ListItemIcon>
@@ -105,7 +133,7 @@ export default function PermanentDrawerLeft() {
                             </ListItem>
                         </Link>
 
-                        <Divider />
+                        <Divider className={classes.colour}/>
                         <Link to="/logout">
                             <ListItem button className={classes.link}>
                                 <ListItemIcon className={classes.link}><ExitToAppRoundedIcon /></ListItemIcon>

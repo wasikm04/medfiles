@@ -16,7 +16,7 @@ class Login extends Component {
             username: "",
             password: "",
             isStatus: false,
-            status:''
+            status: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getRole = this.getRole.bind(this);
@@ -32,38 +32,34 @@ class Login extends Component {
         });
     }
 
-    getRole(username){
+    getRole(username) {
         const axios = require('axios');
-                axios.get('/user/role/' + username + '/', { withCredentials: true })
-                    .then((response) => {
-                        if(response.data.includes("ROLE_USER")){
-                        var bool = response.data.includes("ROLE_DOCTOR") ? true : false;
-                        this.props.updateCard({
-                            isDoctor: bool,
-                            isAuthenticated: true,
-                            user: username
-                        });
-                        this.setState({
-                            isAuthenticated: true
-                        });
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        alert(error);
-                    })
+        axios.get('/user/role/' + username + '/', { withCredentials: true })
+            .then((response) => {
+                if (response.data.includes("ROLE_USER")) {
+                    var bool = response.data.includes("ROLE_DOCTOR") ? true : false;
+                    this.props.updateCard({
+                        isDoctor: bool,
+                        isAuthenticated: true,
+                        user: username
+                    });
+                    this.setState({
+                        isAuthenticated: true
+                    });
+                }
+            })
     }
 
-    componentDidMount() {  
+    componentDidMount() {
         const { cookies } = this.props;
         let username = localStorage.getItem("username");
         if (cookies.get("SESSION") != null && username != null) {
-               this.getRole(username); 
+            this.getRole(username);
         }
     }
 
     handleSubmit = event => {
-        this.setState({isStatus: true});
+        this.setState({ isStatus: true });
         event.preventDefault();
         var formData = new FormData();
         formData.append('username', this.state.username);
@@ -148,16 +144,16 @@ class Login extends Component {
                             onChange={this.handleChange}
                         />
                         {this.state.isStatus ?
-                        <Typography variant="h4" component="h3" align="center" margin="normal">
-                            <CircularProgress align="center" />
-                        </Typography> :
-                        <Button
-                            disabled={!this.validateForm()}
-                            type="submit"
-                            fullWidth
-                            color="primary"
-                            variant="contained"
-                        >Zaloguj</Button>
+                            <Typography variant="h4" component="h3" align="center" margin="normal">
+                                <CircularProgress align="center" />
+                            </Typography> :
+                            <Button
+                                disabled={!this.validateForm()}
+                                type="submit"
+                                fullWidth
+                                color="primary"
+                                variant="contained"
+                            >Zaloguj</Button>
                         }
                     </form>
                     <Typography variant="h4" component="h3" align="center" margin="normal">

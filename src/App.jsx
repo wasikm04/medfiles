@@ -8,8 +8,7 @@ import {
   Switch
 } from 'react-router-dom'
 import PermanentDrawerLeft from './components/NavBar';
-import CardDetails from './components/card/CardDetails';
-import CardUpdate from './components/card/CardUpdate';
+import PatientDetails from './components/card/PatientDetails';
 import DoctorCard from './components/card/DoctorCard';
 import CardProvider from './components/providers/CardProvider';
 import Home from './components/Home';
@@ -17,9 +16,14 @@ import Login from './components/helpers/Login';
 import ProtectedRoute from './components/helpers/ProtectedRoute';
 import Grid from '@material-ui/core/Grid';
 import Logout from './components/helpers/Logout';
-import Appointment from './components/models/appointment/Appointment';
+import Appointments from './components/models/appointment/Appointments';
+import MedicalTests from './components/models/medical-test/MedicalTests';
+import Prescriptions from './components/models/prescription/Prescriptions';
+import Referrals from './components/models/referral/Referrals';
+import Treatments from './components/models/treatment/Treatments';
 import Register from './components/helpers/Register';
 import Welcome from './components/helpers/Welcome';
+import PatientCard from './components/card/PatientCard';
 
 const drawerWidth = 240;
 
@@ -56,7 +60,27 @@ class App extends Component {
               <ProtectedRoute
                 exact
                 path="/appointments"
-                component={() => <Appointment />}
+                component={() => <Appointments />}
+              />
+              <ProtectedRoute
+                exact
+                path="/medical-tests"
+                component={() => <MedicalTests />}
+              />
+              <ProtectedRoute
+                exact
+                path="/prescriptions"
+                component={() => <Prescriptions />}
+              />
+              <ProtectedRoute
+                exact
+                path="/referrals"
+                component={() => <Referrals />}
+              />
+              <ProtectedRoute
+                exact
+                path="/treatments"
+                component={() => <Treatments />}
               />
               <ProtectedRoute
                 exact
@@ -66,12 +90,12 @@ class App extends Component {
               <ProtectedRoute
                 exact
                 path="/card"
-                component={() => <CardDetails />}
+                component={() => <PatientDetails />}
               />
               <ProtectedRoute
                 exact
-                path="/card/update"
-                component={() => <CardUpdate />}
+                path="/patient-card"        //:patient  -> props.params.patient        // Sprawdzić czy potrzebne
+                component={() => <PatientCard />}
               />
               <ProtectedRoute
                 exact

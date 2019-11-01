@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CardConsumer } from '../providers/CardProvider';
 
-const CardDetails = () => (
+const PatientDetails = () => (
   <CardConsumer>
     {({ card}) => (
           <div>
@@ -13,5 +13,5 @@ const CardDetails = () => (
           </div>
     )}
   </CardConsumer>
-) //cos tu nie tak bo strzela do bazy
-export default CardDetails
+)
+export default PatientDetails

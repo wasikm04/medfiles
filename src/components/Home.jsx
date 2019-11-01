@@ -27,7 +27,7 @@ class Home extends Component {
 
   getDoctorCard() {
     const axios = require('axios');
-    axios.get('/doctor-card/' + this.state.username, { withCredentials: true })
+    axios.get('/doctor-card/' + this.state.username +'/' , { withCredentials: true })
       .then((response) => {
         console.log(response.data);
         this.props.updateCard({ doctorCard: response.data })

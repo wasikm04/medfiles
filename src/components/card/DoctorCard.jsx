@@ -27,8 +27,7 @@ class DoctorCard extends Component {
 
     componentDidMount() {
         if (!this.state.isDoctor) {
-            var card = this.getDoctorCard(this.props.match.params.doctorMail);
-            this.setState({ doctorCard: card });
+            this.getDoctorCard(this.props.match.params.doctorMail);
         }
     }
 
@@ -36,7 +35,7 @@ class DoctorCard extends Component {
         const axios = require('axios');
         axios.get('/doctor-card/' + doctorMail + '/', { withCredentials: true })
             .then((response) => {
-                return response.data
+                this.setState({ doctorCard: response.data });
             })
             .catch(function (error) {
                 alert(error);
@@ -66,42 +65,6 @@ class DoctorCard extends Component {
             })
     }
 
-    // prepareFields(card, isDoctor) {
-    //     return (Object.keys(card).map(key => {
-    //         if (key === "_id") {
-    //             return null;
-    //         }
-    //         else if (key === "specializations") {
-    //             var spec = card[key].map((item) =>
-    //                 <ListItem key={item} button>
-    //                     <ListItemText key={item} primary={item} />
-    //                 </ListItem>)
-    //             return <Grid key={key} item xs={6} sm={6}>
-    //                 <Typography variant="h6" >
-    //                     Specjalizacje
-    //                 </Typography>
-    //                 <List component="nav" aria-label="secondary mailbox folders">
-    //                     {spec}
-    //                 </List>
-    //             </Grid>
-    //         } else {
-    //             return <Grid key={key} item xs={6} sm={6}> <TextField
-    //                 required
-    //                 fullWidth
-    //                 disabled={!isDoctor}
-    //                 id={key}
-    //                 label={labels[key]}
-    //                 defaultValue={card[key]}
-    //                 onChange={this.handleChange}
-    //                 margin="normal"
-    //                 variant="filled" />
-    //             </Grid>
-    //         }
-    //     })
-    //     )
-    // }
-
-
     render() {
         return (
             <React.Fragment>
@@ -122,12 +85,14 @@ class DoctorCard extends Component {
                             flexWrap: 'wrap',
                         }
                     }} onSubmit={this.handleSubmit}>
+                        {this.state.doctorCard !== null ?
                         <Grid
                             container
                             justify="space-around"
                         >
                             {objectFields(this.state.doctorCard, this.state.isDoctor, this.handleChange)}
                         </Grid>
+                        : null}
                         {this.state.isDoctor ? 
                         <Grid
                             container

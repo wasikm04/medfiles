@@ -127,10 +127,8 @@ class PatientDetails extends Component {
           <form className={classes.container} onSubmit={this.handleSubmit}>
             <Grid
               container
-              //direction="column"
               justify="space-around"
               spacing={2}
-            //alignItems="center"
             >
               {this.prepareFields(this.state.card)}
             </Grid>

@@ -24,6 +24,7 @@ import Treatments from './components/models/treatment/Treatments';
 import Register from './components/helpers/Register';
 import Welcome from './components/helpers/Welcome';
 import PatientCard from './components/card/PatientCard';
+import DoctorAppointments from './components/models/appointment/Appointments';
 
 const drawerWidth = 240;
 
@@ -64,6 +65,11 @@ class App extends Component {
               />
               <ProtectedRoute
                 exact
+                path="/doctor-appointments"
+                component={() => <DoctorAppointments />}
+              />
+              <ProtectedRoute
+                exact
                 path="/medical-tests"
                 component={() => <MedicalTests />}
               />
@@ -83,9 +89,9 @@ class App extends Component {
                 component={() => <Treatments />}
               />
               <ProtectedRoute
-                exact
+                
                 path="/doctor-card/:doctorMail"  //wyszukiwanie doktora przez pacjentów :props.match.params.doctorMail
-                component={() => <DoctorCard />}
+                component={DoctorCard}
               />
               <ProtectedRoute
                 exact

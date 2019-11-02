@@ -45,7 +45,7 @@ class App extends Component {
           <PermanentDrawerLeft />
           <Grid
             container
-            spacing={2}
+            //spacing={2}
             direction="column"
             alignItems="center"
             justify="center"

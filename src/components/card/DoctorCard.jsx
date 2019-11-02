@@ -124,10 +124,7 @@ class DoctorCard extends Component {
                     }} onSubmit={this.handleSubmit}>
                         <Grid
                             container
-                            //direction="column"
                             justify="space-around"
-                            spacing={2}
-                        //alignItems="center"
                         >
                             {objectFields(this.state.doctorCard, this.state.isDoctor, this.handleChange)}
                         </Grid>

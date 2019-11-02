@@ -9,9 +9,27 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const  objectFields = (card, isDoctor, handleChange) => {
     return (Object.keys(card).map(key => {
-        if (key === "_id") {
+        if (key === "_id" || key==="userMail") {
             return null;
-        }
+        }else if (key === "date") {
+            return <Grid key={key} item xs={6} sm={6}><TextField
+              key={key}
+              required
+              disabled={!isDoctor}
+              id={key}
+              label={labels[key]}
+              type="date"
+              margin="normal"
+              fullWidth
+              variant="filled"
+              defaultValue={card[key]}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e) => handleChange(e, card._id)}
+            />
+            </Grid>
+          } 
         else if (Array.isArray(card[key]) ) {
             var spec = card[key].map((item) =>
                 <ListItem key={item} button>
@@ -33,7 +51,7 @@ const  objectFields = (card, isDoctor, handleChange) => {
                 id={key}
                 label={labels[key]}
                 defaultValue={card[key]}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e, card._id)}
                 margin="normal"
                 variant="filled" />
             </Grid>

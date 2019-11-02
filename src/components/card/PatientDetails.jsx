@@ -3,8 +3,20 @@ import { CardConsumer } from '../providers/CardProvider'
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import labels from "../helpers/defaultLabels";
-class PatientDetails extends Component {
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { Paper } from '@material-ui/core';
 
+const classes = {
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    width: 200,
+  },
+};
+class PatientDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,17 +25,14 @@ class PatientDetails extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  validateForm() {
-    //if not empty
-  }
-
   handleChange = event => {
-    this.setState(prevState => ({
-      card: {
-        ...prevState.card,
-        [event.target.id]: event.target.value
-      }
-    }));
+    event.persist()
+    this.setState(prevState => {
+      var card = { ...prevState.card };
+      card[event.target.id] = event.target.value;
+      return { card };
+    }
+    )
   }
 
   handleSubmit = event => {
@@ -39,28 +48,61 @@ class PatientDetails extends Component {
         this.props.updateCard({
           card: this.state.card
         });
-        alert(response);
+        console.log(response);
       })
       .catch(function (error) {
-        alert(error);
         console.log(error);
       })
-
   }
 
   prepareFields(card) {
     return (Object.keys(card).map(key => {
       if (!(Array.isArray(card[key]) || key === "userId" || key === "_id")) {
-        return <TextField
-          required
-          id={key}
-          label="Required"
-          defaultValue={card[key]}
-          //className={classes.textField}
-          margin="normal"
-          variant="outlined" />
-      } else{
-       return null
+        if (key === "dateBirth") {
+          return <Grid key={key} item xs={6} sm={6}><TextField
+            key={key}
+            required
+            id={key}
+            label={labels[key]}
+            type="date"
+            margin="normal"
+            fullWidth
+            variant="filled"
+            defaultValue={card[key]}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.handleChange}
+          />
+          </Grid>
+        } else if (key === "address") {
+          return <Grid key={key} item xs={6} sm={6}><TextField
+            key={key}
+            id={key}
+            required
+            fullWidth
+            name={key}
+            label={labels[key]}
+            value={card[key]}
+            onChange={this.handleChange}
+            margin="normal"
+            variant="filled"
+          />
+          </Grid>
+        } else {
+          return <Grid key={key} item xs={6} sm={6}> <TextField
+            required
+            fullWidth
+            id={key}
+            label={labels[key]}
+            defaultValue={card[key]}
+            onChange={this.handleChange}
+            margin="normal"
+            variant="filled" />
+          </Grid>
+        }
+      } else {
+        return null
       }
     })
     )
@@ -68,18 +110,45 @@ class PatientDetails extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          {this.prepareFields(this.state.card)}
-          <Button
-            disabled={!this.validateForm()}
-            type="submit"
-            //fullWidth
-            color="primary"
-            variant="contained"
-          >Zapisz</Button>
-        </form>
-      </div>
+      <React.Fragment>
+        <Paper elevation={1} square >
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <Typography variant="h4" gutterBottom>
+              Dane pacjenta
+            </Typography>
+          </Grid>
+          <form className={classes.container} onSubmit={this.handleSubmit}>
+            <Grid
+              container
+              //direction="column"
+              justify="space-around"
+              spacing={2}
+            //alignItems="center"
+            >
+              {this.prepareFields(this.state.card)}
+            </Grid>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Button
+                type="submit"
+                id="button"
+                color="primary"
+                variant="contained"
+              >Zapisz
+          </Button>
+            </Grid>
+          </form>
+        </Paper>
+      </React.Fragment>
     );
   }
 }

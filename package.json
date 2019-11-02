@@ -4,10 +4,13 @@
   "homepage": "https://wasikm04.github.io/medfiles",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "^1.3.11",
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/pickers": "^3.2.7",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "date-fns": "^2.6.0",
     "gh-pages": "^2.1.1",
     "react": "^16.10.2",
     "react-cookie": "^4.0.1",
@@ -15,6 +18,7 @@
     "react-paginating": "^1.3.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "react-select": "^3.0.8",
     "reactstrap": "^8.0.1"
   },
   "scripts": {

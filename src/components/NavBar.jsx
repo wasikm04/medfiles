@@ -106,19 +106,19 @@ export default function PermanentDrawerLeft() {
                                 </Link>
                                 <Link to="/medical-tests">
                                     <ListItem button className={classes.link}>
-                                        <ListItemIcon className={classes.link}><FeaturedPlayListIcon /></ListItemIcon>
+                                        <ListItemIcon className={classes.link}><AssessmentIcon /></ListItemIcon>
                                         <ListItemText primary={"Badania"} />
                                     </ListItem>
                                 </Link>
                                 <Link to="/prescriptions">
                                     <ListItem button className={classes.link}>
-                                        <ListItemIcon className={classes.link}><AssessmentIcon /></ListItemIcon>
+                                        <ListItemIcon className={classes.link}><NoteAddIcon /></ListItemIcon>
                                         <ListItemText primary={"Recepty"} />
                                     </ListItem>
                                 </Link>
                                 <Link to="/referrals">
                                     <ListItem button className={classes.link}>
-                                        <ListItemIcon className={classes.link}><NoteAddIcon /></ListItemIcon>
+                                        <ListItemIcon className={classes.link}><FeaturedPlayListIcon /></ListItemIcon>
                                         <ListItemText primary={"Skierowania"} />
                                     </ListItem>
                                 </Link>

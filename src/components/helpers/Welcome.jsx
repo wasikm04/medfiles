@@ -10,6 +10,7 @@ const Welcome = () => {
         alignItems="center">
         <Card>
             <Typography
+                className={{padding: 40, margin:30}}
                 variant="h6"
                 component="h4"
                 align="center"

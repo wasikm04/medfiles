@@ -43,15 +43,17 @@ class PatientDetails extends Component {
         'Content-Type': 'application/json'
       }
     }
-    axios.post('/card', this.state.card, config)
+    axios.post('/card', this.state.card, config,  { withCredentials: true })
       .then((response) => {
         this.props.updateCard({
           card: this.state.card
         });
         console.log(response);
+        alert(response.data)
       })
       .catch(function (error) {
         console.log(error);
+        alert("Dane nie zostały zapisane ze względu na błędny/już istniejący email")
       })
   }
 

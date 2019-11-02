@@ -19,7 +19,7 @@ import Logout from './components/helpers/Logout';
 import Appointments from './components/models/appointment/Appointments';
 import MedicalTests from './components/models/medical-test/MedicalTests';
 import Prescriptions from './components/models/prescription/Prescriptions';
-import Referrals from './components/models/referral/Referrals';
+import {ConnectedReferrals} from './components/models/referral/Referrals.jsx';
 import Treatments from './components/models/treatment/Treatments';
 import Register from './components/helpers/Register';
 import Welcome from './components/helpers/Welcome';
@@ -75,7 +75,7 @@ class App extends Component {
               <ProtectedRoute
                 exact
                 path="/referrals"
-                component={() => <Referrals />}
+                component={() => <ConnectedReferrals />}
               />
               <ProtectedRoute
                 exact
@@ -84,7 +84,7 @@ class App extends Component {
               />
               <ProtectedRoute
                 exact
-                path="/doctor-card"
+                path="/doctor-card/:doctorMail"  //wyszukiwanie doktora przez pacjentów :props.match.params.doctorMail
                 component={() => <DoctorCard />}
               />
               <ProtectedRoute
@@ -94,7 +94,7 @@ class App extends Component {
               />
               <ProtectedRoute
                 exact
-                path="/patient-card"        //:patient  -> props.params.patient        // Sprawdzić czy potrzebne
+                path="/patient-card/:patientMail"        //:patientMail  -> props.match.params.patientMail        // Sprawdzić czy potrzebne
                 component={() => <PatientCard />}
               />
               <ProtectedRoute

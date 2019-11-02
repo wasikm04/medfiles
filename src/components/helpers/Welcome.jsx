@@ -6,11 +6,11 @@ import Card from '@material-ui/core/Card';
 const Welcome = () => {
     return (
     <Grid item xs={6}
+        container
         direction="row"
         alignItems="center">
         <Card>
             <Typography
-                className={{padding: 40, margin:30}}
                 variant="h6"
                 component="h4"
                 align="center"

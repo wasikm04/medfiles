@@ -28,9 +28,12 @@ const labels = {
     numberICD: "Numer ICD",
     symptomsAndDiagnosis: "Objawy i diagnoza",
     information: "Opis",
+    title:"Tytuł naukowy",
+    prescriptionRefundNumber:"Numer pieczątki",
     pharmacotherapy: "Farmakoterapia",
     medicalAnalysisAndRecommendations: "Epikryza",
-    pesel: "Pesel"
+    pesel: "Pesel",
+    specializations:"Specjalizacje"
 }
 
 export default labels;

@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PermanentDrawerLeft() {
     const classes = useStyles();
-    const { isAuthenticated, isDoctor } = useContext(CardContext);
+    const { user, isAuthenticated, isDoctor } = useContext(CardContext);
 
     return (
         <div className={classes.root}>
@@ -90,7 +90,7 @@ export default function PermanentDrawerLeft() {
                         </Link>
                         <Divider className={classes.colour} />
                         {isDoctor ?
-                            <Link to="/doctor-card">
+                            <Link to={"/doctor-card/"+user}  >
                                 <ListItem button className={classes.link}>
                                     <ListItemIcon className={classes.link}><DescriptionRoundedIcon /></ListItemIcon>
                                     <ListItemText primary={"Karta Lekarza"} />

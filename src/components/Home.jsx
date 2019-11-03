@@ -40,9 +40,13 @@ class Home extends Component {
 
   componentDidMount() {
     if (this.state.isDoctor) {
-      this.getDoctorCard()
+      if(this.props.doctorCard == null){
+        this.getDoctorCard()
+      }
     } else {
-      this.getCard()
+      if(this.props.card == null){
+        this.getCard()
+      }
     }
   }
 
@@ -56,13 +60,15 @@ class Home extends Component {
 }
 const ConnectedHome = props => (
   <CardConsumer>
-    {({ isAuthenticated,updateCard , user, isDoctor  }) => (
+    {({ isAuthenticated,updateCard,card, doctorCard , user, isDoctor  }) => (
       <Home
         {...props}
         isAuthenticated={isAuthenticated}
         user={user}
         isDoctor={isDoctor}
         updateCard={updateCard}
+        card={card}
+        doctorCard={doctorCard}
       />
     )}
   </CardConsumer>

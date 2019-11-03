@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
 import Referral from './Referral.jsx'
+import TextField from '@material-ui/core/TextField';
 
 class Referrals extends Component {
     constructor(props) {
@@ -12,36 +13,35 @@ class Referrals extends Component {
         this.state = {
             referrals: this.props.card.referrals, //propsy podawane albo z karty albo ze zbiorczej karty edycji lekarza przez propsy
             isDoctor: this.props.isDoctor,
-            user: this.props.user
+            doctorMail: this.props.user,
+            patientMail: this.props.card.userMail,
+            numberPWZ: this.props.numberPWZ
         };
         this.addReferral = this.addReferral.bind(this);
     }
 
-    handleChange = (event, id) => { // (e) => this.handleChange(e, id)
-        event.persist();
-        this.setState(prevState => ({
-            referrals: prevState.referrals.map(
-                item => item._id === id ? { ...item, [event.target.id]: event.target.value } : item
-            )
-        }))
-    }
+    // handleChange = (event, id) => { 
+    //     event.persist();
+    //     this.setState(prevState => ({
+    //         referrals: prevState.referrals.map(
+    //             item => item._id === id ? { ...item, [event.target.id]: event.target.value } : item
+    //         )
+    //     }))
+    // }
 
 
-    addReferral = () => {
-        var userMail = this.state.user;
+    addReferral = (event) => {
+        event.preventDefault();
         const newelement = {
             _id: null,
-            date: "",
-            userMail: { userMail },
-            purpose: "",
-            recognition: "",
-            doctorMail: "",
-            numberPWZ: ''
+            date: event.target[1].value,
+            userMail: this.state.patientMail,
+            purpose: event.target[0].value,
+            recognition: event.target[2].value,
+            doctorMail: this.state.doctorMail,
+            numberPWZ: this.state.numberPWZ
         }
-        this.setState(prevState => ({
-            referrals: [...prevState.referrals, newelement]
-        }))
-
+        console.log(newelement)
 
         const axios = require('axios');
         const config = {
@@ -53,6 +53,9 @@ class Referrals extends Component {
             .then((response) => {
                 console.log(response);
                 alert("Pomyślnie zapisano kartę")
+                this.setState(prevState => ({
+                    referrals: [...prevState.referrals, newelement]
+                }))
             })
             .catch(function (error) {
                 console.log(error);
@@ -61,7 +64,7 @@ class Referrals extends Component {
     }
 
 
-    prepareForms(referrals, isDoctor, handleChange) {
+    prepareForms(referrals, isDoctor, userMail) {
         return (
             <Grid container 
             direction="column"
@@ -69,13 +72,13 @@ class Referrals extends Component {
             alignItems="center"
             spacing={2}>
                 {referrals.map((referral) =>
-                    <Grid key={referral._id} item>
+                    <Grid key={referral.date+referral._id} item>
                         
                         <Paper  elevation={3} square={false} >
                         <Typography variant="h4" gutterBottom>
                         Skierowanie {referral.date}
                         </Typography>
-                            <Referral referral={referral} isDoctor={isDoctor} handleChangeGlobal={handleChange} />
+                            <Referral referral={referral} isDoctor={isDoctor} userMail={userMail} />
                         </Paper>
                     </Grid>
                 )}
@@ -88,7 +91,6 @@ class Referrals extends Component {
             <React.Fragment>
                 <Grid
                     container
-                    //direction="column"
                     justify="center"
                     alignItems="center"
                 >
@@ -96,23 +98,60 @@ class Referrals extends Component {
                         Skierowania
                         </Typography>
                 </Grid>
-                {this.prepareForms(this.state.referrals, this.state.isDoctor, this.handleChange)}
+                {this.prepareForms(this.state.referrals, this.state.isDoctor, this.state.patientMail)}   
                 {this.state.isDoctor ?
-                    <Grid
-                        container
-                        direction="column"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <Button
-                            onClick={this.addReferral}
-                            id="button"
-                            color="primary"
-                            variant="contained"
-                        >Dodaj
-                        </Button>
-                    </Grid>
-                    : null}
+                        <Paper elevation={1} square>
+                            <form onSubmit={this.addReferral}>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="center"
+                                    alignItems="center"
+                                >
+                                    <Typography variant="h4" gutterBottom>
+                                    Nowe skierowanie
+                                    </Typography>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        id='purpose'
+                                        label="Cel skierowania"
+                                        margin="normal"
+                                        variant="filled"
+                                        name="purpose" />
+                                    <TextField
+                                        required
+                                        id="date"
+                                        label="Data"
+                                        type="date"
+                                        margin="normal"
+                                        fullWidth
+                                        variant="filled"
+                                        name="date"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        id='reckognition'
+                                        label="Rozpoznanie"
+                                        margin="normal"
+                                        variant="filled"
+                                        name="reckognition" />
+                                    <Button
+                                        type="submit"
+                                        id="button"
+                                        color="primary"
+                                        variant="contained"
+                                    >Dodaj
+                                </Button>
+                                </Grid>
+                            </form>
+                        </Paper>
+                        : null}
+                    
             </React.Fragment >
         );
     }

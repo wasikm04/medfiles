@@ -6,23 +6,7 @@ export const CardConsumer = CardContext.Consumer
 
 class CardProvider extends Component {
   state = {
-    card: {
-      "_id": "",
-      "_user_mail": "",
-      "_user_id": "",
-      "first_name": "",
-      "last_name": "",
-      "dateBirth": "",
-      "sex": "m",
-      "address": "",
-      "phoneNumber": "",
-      "insuranceType": "",
-      "prescriptions": [],
-      "medicalTests": [],
-      "referrals": [],
-      "treatments": [],
-      "pesel": ""
-    },
+    card: null,
     isAuthenticated: false,
     isDoctor: false, 
     doctorCard:null,

@@ -20,7 +20,6 @@ export default class Appointment extends Component {
             appointment[event.target.id] = event.target.value;
             return { appointment };
         })
-        //this.props.handleChangeGlobal(event, this.props.referral._id);
     }
 
     saveAppointment = (event) =>{

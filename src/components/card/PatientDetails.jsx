@@ -21,6 +21,7 @@ class PatientDetails extends Component {
     super(props);
     this.state = {
       card: this.props.card,
+      isDoctor: this.props.isDoctor,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -57,13 +58,14 @@ class PatientDetails extends Component {
       })
   }
 
-  prepareFields(card) {
+  prepareFields(card, isDoctor) {
     return (Object.keys(card).map(key => {
       if (!(Array.isArray(card[key]) || key === "userId" || key === "_id")) {
         if (key === "dateBirth") {
           return <Grid key={key} item xs={6} sm={6}><TextField
             key={key}
             required
+            disabled={isDoctor}
             id={key}
             label={labels[key]}
             type="date"
@@ -83,6 +85,7 @@ class PatientDetails extends Component {
             id={key}
             required
             fullWidth
+            disabled={isDoctor}
             name={key}
             label={labels[key]}
             value={card[key]}
@@ -96,6 +99,7 @@ class PatientDetails extends Component {
             required
             fullWidth
             id={key}
+            disabled={isDoctor}
             label={labels[key]}
             defaultValue={card[key]}
             onChange={this.handleChange}
@@ -130,8 +134,9 @@ class PatientDetails extends Component {
               justify="space-around"
               spacing={2}
             >
-              {this.prepareFields(this.state.card)}
+              {this.prepareFields(this.state.card, this.state.isDoctor)}
             </Grid>
+            {!this.state.isDoctor ? 
             <Grid
               container
               direction="column"
@@ -146,6 +151,7 @@ class PatientDetails extends Component {
               >Zapisz
           </Button>
             </Grid>
+            : null}
           </form>
         </Paper>
       </React.Fragment>
@@ -156,14 +162,15 @@ class PatientDetails extends Component {
 
 const ConnectedPatientDetails = props => (
   <CardConsumer>
-    {({ card, updateCard }) => (
+    {({ card, updateCard, isDoctor }) => (
       <PatientDetails
         {...props}
         card={card}
         updateCard={updateCard}
+        isDoctor={isDoctor}
       />
     )}
   </CardConsumer>
 )
 
-export default ConnectedPatientDetails
+export {ConnectedPatientDetails, PatientDetails}

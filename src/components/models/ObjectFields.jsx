@@ -6,12 +6,15 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Link } from 'react-router-dom'
+import { Button } from '@material-ui/core';
+
 
 const objectFields = (card, isDoctor, handleChange) => {
     return (Object.keys(card).map(key => {
         if (key === "_id" || key === "userMail") {
             return null;
-        } else if (key === "date" || key === "dateTo" || key === "testDate" ) {
+        } else if (key === "date" || key === "dateTo" || key === "testDate") {
             return <Grid key={key} item xs={6} sm={6}>
                 <TextField
                     key={key}
@@ -31,7 +34,7 @@ const objectFields = (card, isDoctor, handleChange) => {
                 />
             </Grid>
         }
-        else if (key === "dateTime" ) {
+        else if (key === "dateTime") {
             return <Grid key={key} item xs={6} sm={6}>
                 <TextField
                     key={key}
@@ -54,28 +57,41 @@ const objectFields = (card, isDoctor, handleChange) => {
         else if (key === "patientMail") {
             return <Grid key={key} item xs={6} sm={6}>
                 <TextField
-                    fullWidth
                     disabled={isDoctor}
+                    fullWidth
                     id={key}
                     label={labels[key]}
                     defaultValue={card[key]}
                     onChange={(e) => handleChange(e, card._id)}
                     margin="normal"
                     variant="filled" />
-                </Grid>
+                    {card[key] != null && isDoctor ? 
+                    <Grid item xs={3} sm={3}>
+                        <Link key={key} to={"/patient-card/" + card[key]}>
+                            <Button
+                            id="button"
+                            color="primary"
+                            variant="contained"
+                            >
+                            Karta
+                        </Button>
+                        </Link>
+                     </Grid>
+                        : null}
+                    </Grid>
+        
         }
         else if (key === "comment") {
             return <Grid key={key} item xs={6} sm={6}>
                 <TextField
                     fullWidth
-                    disabled={isDoctor}
                     id={key}
                     label={labels[key]}
                     defaultValue={card[key]}
                     onChange={(e) => handleChange(e, card._id)}
                     margin="normal"
                     variant="filled" />
-                </Grid>
+            </Grid>
         }
         else if (Array.isArray(card[key])) {
             var spec = card[key].map((item) =>

@@ -8,7 +8,7 @@ import {
   Switch
 } from 'react-router-dom'
 import PermanentDrawerLeft from './components/NavBar';
-import PatientDetails from './components/card/PatientDetails';
+import {ConnectedPatientDetails} from './components/card/PatientDetails';
 import DoctorCard from './components/card/DoctorCard';
 import CardProvider from './components/providers/CardProvider';
 import Home from './components/Home';
@@ -88,19 +88,17 @@ class App extends Component {
                 component={() => <Treatments />}
               />
               <ProtectedRoute
-                
                 path="/doctor-card/:doctorMail"  //wyszukiwanie doktora przez pacjentów :props.match.params.doctorMail
                 component={DoctorCard}
               />
               <ProtectedRoute
                 exact
                 path="/card"
-                component={() => <PatientDetails />}
+                component={() => <ConnectedPatientDetails />}
               />
               <ProtectedRoute
-                exact
                 path="/patient-card/:patientMail"        //:patientMail  -> props.match.params.patientMail        // Sprawdzić czy potrzebne
-                component={() => <PatientCard />}
+                component={PatientCard}
               />
               <ProtectedRoute
                 exact

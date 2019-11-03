@@ -14,24 +14,25 @@ export default class Referral extends Component {
     }
 
     handleChange = event => {
-        // event.persist()
-        // this.setState(prevState => {
-        //     var referral = { ...prevState.referral };
-        //     referral[event.target.id] = event.target.value;
-        //     return { referral };
-        // })
-        this.props.handleChangeGlobal(event, this.props.referral._id);
+         event.persist()
+         this.setState(prevState => {
+             var referral = { ...prevState.referral };
+             referral[event.target.id] = event.target.value;
+             return { referral };
+         })
+        //this.props.handleChangeGlobal(event, this.props.referral._id);
     }
 
     saveReferral = (event) =>{
         event.preventDefault();
+        const completedReferral = {...this.state.referral, userMail: this.props.userMail}
         const axios = require('axios');
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        axios.put('/referral', this.state.referral, config, { withCredentials: true })
+        axios.put('/referral', completedReferral, config, { withCredentials: true })
             .then((response) => {
                 console.log(response);
                 alert("Pomyślnie zapisano kartę")

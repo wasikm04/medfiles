@@ -18,6 +18,7 @@ const labels = {
     testDate: "Data badania",
     testName: "Nazwa badania",
     authorMail: "Adres email laboranta",
+    patientMail:"Adres pacjenta",
     parametersWithReference: "Wyniki z odniesieniem",
     fileId: "Dokument badania",
     referrals:"Skierowania",
@@ -33,6 +34,9 @@ const labels = {
     pharmacotherapy: "Farmakoterapia",
     medicalAnalysisAndRecommendations: "Epikryza",
     pesel: "Pesel",
+    comment: "Komentarz",
+    dateTime:"Data",
+    doctorFullName:"Imię i nazwisko lekarza",
     specializations:"Specjalizacje"
 }
 

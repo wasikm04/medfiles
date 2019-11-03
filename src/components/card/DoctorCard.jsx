@@ -110,7 +110,7 @@ class DoctorCard extends Component {
                             </Button>
                         </Grid>
                         :
-                        <MakeAppointment doctoMail={this.state.doctorCard.userMail} /> }
+                        this.state.doctorCard !== null ? <MakeAppointment doctorMail={this.state.doctorCard.userMail} patientMail={this.props.user} /> : null }
                     </form>
                 </Paper>
             </React.Fragment >
@@ -120,12 +120,13 @@ class DoctorCard extends Component {
 
 const ConnectedDoctorCard = props => (
     <CardConsumer>
-        {({ doctorCard, isDoctor, updateCard }) => (
+        {({ doctorCard, isDoctor, updateCard, user }) => (
             <DoctorCard
                 {...props}
                 doctorCard={doctorCard}
                 updateCard={updateCard}
                 isDoctor={isDoctor}
+                user={user}
             />
         )}
     </CardConsumer>

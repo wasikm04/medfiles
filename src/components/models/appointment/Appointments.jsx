@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { CardConsumer } from '../../providers/CardProvider'
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import Appointment from './Appointment'
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 class Appointments extends Component {
@@ -26,10 +24,10 @@ class Appointments extends Component {
         event.preventDefault();
         const newelement = {
             _id: null,
-            patientMail: null,
+            patientMail: null, //""
             doctorMail: this.state.user,
             doctorFullName: this.state.doctorCard.firstName +" "+ this.state.doctorCard.lastName,
-            date: event.target[1].value,
+            dateTime: event.target[1].value,
             comment: event.target[0].value
         }
         const axios = require('axios');
@@ -60,7 +58,6 @@ class Appointments extends Component {
         }
         axios.get('/appointment/' + path + this.state.user + "/", { withCredentials: true })
             .then((response) => {
-                console.log(response)
                 this.setState({
                     appointments: response.data
                 })
@@ -81,7 +78,7 @@ class Appointments extends Component {
                 <Grid key={appointment._id} item>
                     <Paper elevation={3} square={false} >
                         <Typography variant="h4" gutterBottom>
-                            Wizyta {appointment.date}
+                            Wizyta {appointment.dateTime}
                         </Typography>
                         <Appointment appointment={appointment} isDoctor={isDoctor} />
                     </Paper>
@@ -107,7 +104,6 @@ class Appointments extends Component {
                     </Grid>
                     {this.state.appointments ? this.renderAppointments(this.state.appointments, this.state.isDoctor) : null}
                     {this.state.isDoctor ?
-
                         <Paper elevation={1} square>
                             <form onSubmit={this.addAppointment}>
                                 <Grid

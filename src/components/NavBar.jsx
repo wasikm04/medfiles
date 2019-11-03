@@ -90,20 +90,12 @@ export default function PermanentDrawerLeft() {
                         </Link>
                         <Divider className={classes.colour} />
                         {isDoctor ?
-                        <div>
                             <Link to={"/doctor-card/" + user}  >
                                 <ListItem button className={classes.link}>
                                     <ListItemIcon className={classes.link}><DescriptionRoundedIcon /></ListItemIcon>
                                     <ListItemText primary={"Karta Lekarza"} />
                                 </ListItem>
-                            </Link>
-                            <Link to="/doctor-appointments">
-                            <ListItem button className={classes.link}>
-                                <ListItemIcon className={classes.link}><EventRoundedIcon /></ListItemIcon>
-                                <ListItemText primary={"Wizyty"} />
-                            </ListItem>
-                        </Link>
-                        </div>
+                            </Link>                       
                             :
                             <div>
                                 <Link to="/card">
@@ -136,14 +128,20 @@ export default function PermanentDrawerLeft() {
                                         <ListItemText primary={"Historia chorób"} />
                                     </ListItem>
                                 </Link>
-                                <Link to="/appointments">
+                                <Link to="/doctor-list">
+                                    <ListItem button className={classes.link}>
+                                        <ListItemIcon className={classes.link}><NoteAddIcon /></ListItemIcon>
+                                        <ListItemText primary={"Karty lekarskie"} />
+                                    </ListItem>
+                                </Link>
+                            </div>
+                        }
+                        <Link to="/appointments">
                                     <ListItem button className={classes.link}>
                                         <ListItemIcon className={classes.link}><EventRoundedIcon /></ListItemIcon>
                                         <ListItemText primary={"Wizyty"} />
                                     </ListItem>
                                 </Link>
-                            </div>
-                        }
                         <Divider className={classes.colour} />
                         <Link to="/logout">
                             <ListItem button className={classes.link}>

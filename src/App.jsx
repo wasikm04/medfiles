@@ -17,6 +17,7 @@ import ProtectedRoute from './components/helpers/ProtectedRoute';
 import Grid from '@material-ui/core/Grid';
 import Logout from './components/helpers/Logout';
 import Appointments from './components/models/appointment/Appointments';
+import DoctorList from './components/models/DoctorList'
 import MedicalTests from './components/models/medical-test/MedicalTests';
 import Prescriptions from './components/models/prescription/Prescriptions';
 import {ConnectedReferrals} from './components/models/referral/Referrals.jsx';
@@ -24,8 +25,6 @@ import Treatments from './components/models/treatment/Treatments';
 import Register from './components/helpers/Register';
 import Welcome from './components/helpers/Welcome';
 import PatientCard from './components/card/PatientCard';
-import DoctorAppointments from './components/models/appointment/Appointments';
-
 const drawerWidth = 240;
 
 const useStyles = {
@@ -65,8 +64,8 @@ class App extends Component {
               />
               <ProtectedRoute
                 exact
-                path="/doctor-appointments"
-                component={() => <DoctorAppointments />}
+                path="/doctor-list"
+                component={() => <DoctorList />}
               />
               <ProtectedRoute
                 exact

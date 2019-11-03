@@ -7,30 +7,77 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const  objectFields = (card, isDoctor, handleChange) => {
+const objectFields = (card, isDoctor, handleChange) => {
     return (Object.keys(card).map(key => {
-        if (key === "_id" || key==="userMail") {
+        if (key === "_id" || key === "userMail") {
             return null;
-        }else if (key === "date") {
-            return <Grid key={key} item xs={6} sm={6}><TextField
-              key={key}
-              required
-              disabled={!isDoctor}
-              id={key}
-              label={labels[key]}
-              type="date"
-              margin="normal"
-              fullWidth
-              variant="filled"
-              defaultValue={card[key]}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(e) => handleChange(e, card._id)}
-            />
+        } else if (key === "date" || key === "dateTo" || key === "testDate" ) {
+            return <Grid key={key} item xs={6} sm={6}>
+                <TextField
+                    key={key}
+                    required
+                    disabled={!isDoctor}
+                    id={key}
+                    label={labels[key]}
+                    type="date"
+                    margin="normal"
+                    fullWidth
+                    variant="filled"
+                    defaultValue={card[key]}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    onChange={(e) => handleChange(e, card._id)}
+                />
             </Grid>
-          } 
-        else if (Array.isArray(card[key]) ) {
+        }
+        else if (key === "dateTime" ) {
+            return <Grid key={key} item xs={6} sm={6}>
+                <TextField
+                    key={key}
+                    required
+                    disabled={!isDoctor}
+                    id={key}
+                    label={labels[key]}
+                    type="datetype-local"
+                    margin="normal"
+                    fullWidth
+                    variant="filled"
+                    defaultValue={card[key]}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    onChange={(e) => handleChange(e, card._id)}
+                />
+            </Grid>
+        }
+        else if (key === "patientMail") {
+            return <Grid key={key} item xs={6} sm={6}>
+                <TextField
+                    fullWidth
+                    disabled={isDoctor}
+                    id={key}
+                    label={labels[key]}
+                    defaultValue={card[key]}
+                    onChange={(e) => handleChange(e, card._id)}
+                    margin="normal"
+                    variant="filled" />
+                </Grid>
+        }
+        else if (key === "comment") {
+            return <Grid key={key} item xs={6} sm={6}>
+                <TextField
+                    fullWidth
+                    disabled={isDoctor}
+                    id={key}
+                    label={labels[key]}
+                    defaultValue={card[key]}
+                    onChange={(e) => handleChange(e, card._id)}
+                    margin="normal"
+                    variant="filled" />
+                </Grid>
+        }
+        else if (Array.isArray(card[key])) {
             var spec = card[key].map((item) =>
                 <ListItem key={item} button>
                     <ListItemText key={item} primary={item} />

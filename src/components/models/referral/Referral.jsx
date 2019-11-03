@@ -6,7 +6,6 @@ import objectFields from '../ObjectFields'
 export default class Referral extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props.referral)
         this.state = {
             referral: this.props.referral, //propsy podawane albo z karty albo ze zbiorczej karty edycji lekarza
             isDoctor: this.props.isDoctor,

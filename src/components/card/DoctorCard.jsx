@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
 import objectFields from '../models/ObjectFields'
+import MakeAppointment from '../models/appointment/MakeAppointment'
 class DoctorCard extends Component {
     constructor(props) {
         super(props);
@@ -109,7 +110,7 @@ class DoctorCard extends Component {
                             </Button>
                         </Grid>
                         :
-                        null }
+                        <MakeAppointment doctoMail={this.state.doctorCard.userMail} /> }
                     </form>
                 </Paper>
             </React.Fragment >

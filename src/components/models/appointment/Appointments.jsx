@@ -1,48 +1,68 @@
 import React, { Component } from 'react';
+import { CardConsumer } from '../../providers/CardProvider'
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
+import Appointment from './Appointment'
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
-import ReactPaginate from 'react-paginate';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const colour = {
-    background: 'rgb(35, 47, 62)',
-    color: "white",
-    textDecoration: 'none',
-}
-export default class Appointments extends Component {
+
+class Appointments extends Component {
     constructor(props) {
         super(props);
         this.state = {
             appointments: null,
-            doctors: null,
-            search: ''
+            isDoctor: this.props.isDoctor,
+            user: this.props.user,
+            doctorCard : this.props.doctorCard
         };
-        this.handlePageClick = this.handlePageClick.bind(this);
+        this.addAppointment = this.addAppointment.bind(this);
     }
 
-    changeSelect = event => {
-        this.setState({
-            search: event.target.value
-        })
-    }
-
-    getPage(page) {
+    addAppointment = (event) => {
+        event.preventDefault();
+        const newelement = {
+            _id: null,
+            patientMail: null,
+            doctorMail: this.state.user,
+            doctorFullName: this.state.doctorCard.firstName +" "+ this.state.doctorCard.lastName,
+            date: event.target[1].value,
+            comment: event.target[0].value
+        }
         const axios = require('axios');
-        axios.get('/doctor-card/list/' + page, { withCredentials: true })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post('/appointment', newelement, config, { withCredentials: true })
             .then((response) => {
+                console.log(response);
+                this.setState(prevState => ({
+                    appointments: [...prevState.appointments, newelement]
+                }))
+                alert("Pomyślnie dodano termin wizyty")
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert("Dane nie zostały zapisane ze względu na błędne dane")
+            })
+    }
+
+    componentDidMount() {
+        const axios = require('axios');
+        var path = 'patient/'
+        if (this.state.isDoctor) {
+            path = 'doctor/'
+        }
+        axios.get('/appointment/' + path + this.state.user + "/", { withCredentials: true })
+            .then((response) => {
+                console.log(response)
                 this.setState({
-                    doctors: response.data
+                    appointments: response.data
                 })
             })
             .catch(function (error) {
@@ -51,74 +71,27 @@ export default class Appointments extends Component {
             })
     }
 
-    componentDidMount() {
-        this.getPage(0);
-    }
-
-    handlePageClick = data => {
-        let selected = data.selected
-        this.getPage(selected);
-    }
-
-    handleSearch = (event, search) => {
-        //event.preventDefault()
-        if (search !== '') {
-            this.setState({
-                doctors: null
-            })
-            console.log("strzelam")
-            const axios = require('axios');
-            axios.get('/doctor-card/list/0?text=' + search, { withCredentials: true })
-                .then((response) => {
-                    console.log("odbieram")
-                    console.log(response)
-                    this.setState({
-                        doctors: response.data
-                    })
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    alert("Dane nie zostały pobrane, spróbuj ponownie")
-                })
-        }
-    }
-
-
-    renderTable = (doctors) => {
-        if (doctors !== null) {
-            return (<Paper >
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Imię i nazwisko</TableCell>
-                            <TableCell align="right">Specjalizacje</TableCell>
-                            <TableCell align="right">Adres email</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {doctors.content.map(doctor => (
-                            <TableRow key={doctor.userMail}>
-                                <TableCell component="th" scope="row">
-                                    <Link className={colour} to={"/doctor-card/" + doctor.userMail}>
-                                        {doctor.firstName + " " + doctor.lastName}
-                                    </Link>
-                                </TableCell>
-                                <TableCell align="right">{doctor.specializations.map(spec =>
-                                    (<ListItem key={spec} button>
-                                        <ListItemText primary={spec} />
-                                    </ListItem>))}
-                                </TableCell>
-                                <TableCell align="right">{doctor.userMail}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Paper >
-            )
-        }
+    renderAppointments(appointments, isDoctor) {
+        return <Grid container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            spacing={2}>
+            {appointments.map((appointment) =>
+                <Grid key={appointment._id} item>
+                    <Paper elevation={3} square={false} >
+                        <Typography variant="h4" gutterBottom>
+                            Wizyta {appointment.date}
+                        </Typography>
+                        <Appointment appointment={appointment} isDoctor={isDoctor} />
+                    </Paper>
+                </Grid>
+            )}
+        </Grid>
     }
 
     render() {
+        //this.getAppointments(this.state.isDoctor, this.state.user);
         return (
             <React.Fragment>
                 <Paper elevation={1} square >
@@ -129,63 +102,73 @@ export default class Appointments extends Component {
                         alignItems="center"
                     >
                         <Typography variant="h4" gutterBottom>
-                            Kartoteki lekarzy
+                            Terminy wizyt
                         </Typography>
-                        <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center">
-                            <TextField
-                                id="standard-basic"
-                                label="Wyszukaj lekarza"
-                                margin="normal"
-                                onChange={this.changeSelect}
-                            />
-                            <Button
-                                onClick={(e) => this.handleSearch(e, this.state.search)}
-                                //onClick={this.handleSearch(this.state.search)}
-                                id="button"
-                            >Szukaj
-                        </Button>
-                        </Grid>
                     </Grid>
-                    {this.state.doctors !== null ?
-                        <Grid
-                            container
-                            direction="column"
-                            justify="center"
-                            alignItems="center"
-                        >
-                            {this.renderTable(this.state.doctors)}
-                            <ReactPaginate
-                                previousLabel={'Poprzednia'}
-                                nextLabel={'Następna'}
-                                breakLabel={'...'}
-                                pageCount={this.state.doctors.totalPages}
-                                marginPagesDisplayed={2}
-                                pageRangeDisplayed={5}
-                                onPageChange={this.handlePageClick}
-                                subContainerClassName={'pages pagination'}
-                                breakClassName={'page-item'}
-                                breakLinkClassName={'page-link'}
-                                containerClassName={'pagination'}
-                                pageClassName={'page-item'}
-                                pageLinkClassName={'page-link'}
-                                previousClassName={'page-item'}
-                                previousLinkClassName={'page-link'}
-                                nextClassName={'page-item'}
-                                nextLinkClassName={'page-link'}
-                                activeClassName={'active'}
-                            />
-                        </Grid>
-                        :
-                        <Typography variant="h4" component="h3" align="center" margin="normal">
-                            <CircularProgress align="center" />
-                        </Typography>
-                    }
+                    {this.state.appointments ? this.renderAppointments(this.state.appointments, this.state.isDoctor) : null}
+                    {this.state.isDoctor ?
+
+                        <Paper elevation={1} square>
+                            <form onSubmit={this.addAppointment}>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="center"
+                                    alignItems="center"
+                                >
+                                    <Typography variant="h4" gutterBottom>
+                                    Nowa wizyta
+                                    </Typography>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        id='comment'
+                                        label="Komentarz"
+                                        margin="normal"
+                                        variant="filled"
+                                        name="comment" />
+                                    <TextField
+                                        required
+                                        id="date"
+                                        label="Data"
+                                        type="datetime-local"
+                                        margin="normal"
+                                        fullWidth
+                                        variant="filled"
+                                        name="date"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                    <Button
+                                        type="submit"
+                                        id="button"
+                                        color="primary"
+                                        variant="contained"
+                                    >Dodaj
+                                </Button>
+                                </Grid>
+                            </form>
+                        </Paper>
+                        : null}
                 </Paper>
             </React.Fragment>
         )
     }
 }
+
+
+const ConnectedAppointments = props => (
+    <CardConsumer>
+        {({ isDoctor, user, doctorCard }) => (
+            <Appointments
+                {...props}
+                isDoctor={isDoctor}
+                user={user}
+                doctorCard = {doctorCard}
+            />
+        )}
+    </CardConsumer>
+)
+
+export default ConnectedAppointments

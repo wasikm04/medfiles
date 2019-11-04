@@ -11,7 +11,7 @@ class Referrals extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            referrals: this.props.card.referrals, //propsy podawane albo z karty albo ze zbiorczej karty edycji lekarza przez propsy
+            referrals: this.props.card.referrals, 
             isDoctor: this.props.isDoctor,
             doctorMail: this.props.user,
             patientMail: this.props.card.userMail,
@@ -19,16 +19,6 @@ class Referrals extends Component {
         };
         this.addReferral = this.addReferral.bind(this);
     }
-
-    // handleChange = (event, id) => { 
-    //     event.persist();
-    //     this.setState(prevState => ({
-    //         referrals: prevState.referrals.map(
-    //             item => item._id === id ? { ...item, [event.target.id]: event.target.value } : item
-    //         )
-    //     }))
-    // }
-
 
     addReferral = (event) => {
         event.preventDefault();

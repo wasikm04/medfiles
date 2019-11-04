@@ -44,9 +44,9 @@ class Home extends Component {
         this.getDoctorCard()
       }
     } else {
-      if(this.props.card == null){
+      //if(this.props.card == null){
         this.getCard()
-      }
+     // }
     }
   }
 

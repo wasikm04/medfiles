@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
 import React, { Component } from 'react';
 import { Referrals } from "../models/referral/Referrals"
+import { MedicalTests } from "../models/medical-test/MedicalTests"
 import { PatientDetails } from "./PatientDetails"
 import Box from "@material-ui/core/Box";
 
@@ -102,6 +103,9 @@ class PatientCard extends Component {
               </TabPanel>
               <TabPanel value={this.state.selected} index={1}>
                 <Referrals card={this.state.card} isDoctor={this.state.isDoctor} updateCard={this.props.updateCard} user={this.state.doctorMail} numberPWZ={this.state.doctorCard.numberPWZ} />
+              </TabPanel>
+              <TabPanel value={this.state.selected} index={2}>
+                <MedicalTests card={this.state.card} isDoctor={this.state.isDoctor} updateCard={this.props.updateCard} user={this.state.doctorMail} />
               </TabPanel>
             </Grid>
             : null}

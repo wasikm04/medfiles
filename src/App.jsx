@@ -18,7 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import Logout from './components/helpers/Logout';
 import Appointments from './components/models/appointment/Appointments';
 import DoctorList from './components/models/DoctorList'
-import MedicalTests from './components/models/medical-test/MedicalTests';
+import {ConnectedMedicalTests} from './components/models/medical-test/MedicalTests';
 import Prescriptions from './components/models/prescription/Prescriptions';
 import {ConnectedReferrals} from './components/models/referral/Referrals.jsx';
 import Treatments from './components/models/treatment/Treatments';
@@ -70,7 +70,7 @@ class App extends Component {
               <ProtectedRoute
                 exact
                 path="/medical-tests"
-                component={() => <MedicalTests />}
+                component={ConnectedMedicalTests}
               />
               <ProtectedRoute
                 exact

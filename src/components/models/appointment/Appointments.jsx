@@ -71,7 +71,7 @@ class Appointments extends Component {
     renderAppointments(appointments, isDoctor) {
         return <Grid container
             direction="column"
-            justify="flex-start"
+            justify="center"
             alignItems="center"
             spacing={2}>
             {appointments.map((appointment) =>

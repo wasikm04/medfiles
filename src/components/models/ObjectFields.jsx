@@ -54,6 +54,9 @@ const objectFields = (card, isDoctor, handleChange) => {
                 />
             </Grid>
         }
+        else if (key === "fileId") {
+            return null
+        }
         else if (key === "patientMail") {
             return <Grid key={key} item xs={6} sm={6}>
                 <TextField
@@ -65,21 +68,24 @@ const objectFields = (card, isDoctor, handleChange) => {
                     onChange={(e) => handleChange(e, card._id)}
                     margin="normal"
                     variant="filled" />
-                    {card[key] != null && isDoctor ? 
-                    <Grid item xs={3} sm={3}>
+                {card[key] != null && isDoctor ?
+                    <Grid container
+                    direction="column"
+                    justify="center"
+                    alignItems="center">
                         <Link key={key} to={"/patient-card/" + card[key]}>
                             <Button
-                            id="button"
-                            color="primary"
-                            variant="contained"
+                                id="button"
+                                color="primary"
+                                variant="contained"
                             >
-                            Karta
+                                Karta Pacjenta
                         </Button>
                         </Link>
-                     </Grid>
-                        : null}
                     </Grid>
-        
+                    : null}
+            </Grid>
+
         }
         else if (key === "comment") {
             return <Grid key={key} item xs={6} sm={6}>

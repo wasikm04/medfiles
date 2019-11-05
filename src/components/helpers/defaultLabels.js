@@ -35,6 +35,7 @@ const labels = {
     medicalAnalysisAndRecommendations: "Epikryza",
     pesel: "Pesel",
     comment: "Komentarz",
+    prescriptionId:"Numer recepty",
     dateTime:"Data",
     doctorFullName:"Imię i nazwisko lekarza",
     specializations:"Specjalizacje"

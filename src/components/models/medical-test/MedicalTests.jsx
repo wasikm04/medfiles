@@ -9,6 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import TableCell from '@material-ui/core/TableCell';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 class MedicalTests extends Component {
     constructor(props) {
@@ -125,7 +129,7 @@ class MedicalTests extends Component {
                                 container
                                 //direction="column"
                                 justify="center"
-                               // alignItems="center"
+                            // alignItems="center"
                             >
                                 <Typography variant="h4" gutterBottom>
                                     Nowe wyniki
@@ -138,7 +142,7 @@ class MedicalTests extends Component {
                                     margin="normal"
                                     variant="filled"
                                     name="testName" />
-                                    <TextField
+                                <TextField
                                     required
                                     id="date"
                                     label="Data"
@@ -155,13 +159,22 @@ class MedicalTests extends Component {
                                     direction="row"
                                     justify="center"
                                     alignItems="center">
-                                    <div>
-                                        <TableCell align="right">{this.state.parametersList.map(param =>
-                                            (<ListItem key={param} button>
-                                                <ListItemText primary={param} />
-                                            </ListItem>))}
-                                        </TableCell>
-                                    </div>
+                                    <Table aria-label="simple table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>Wynik z odniesieniem</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell align="right">{this.state.parametersList.map(param =>
+                                                    (<ListItem key={param} button>
+                                                        <ListItemText primary={param} />
+                                                    </ListItem>))}
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
                                     <TextField
                                         fullWidth
                                         required

@@ -18,8 +18,8 @@ const objectFields = (card, isDoctor, handleChange) => {
             return <Grid key={key} item xs={6} sm={6}>
                 <TextField
                     key={key}
-                    required
-                    disabled={!isDoctor}
+                    //required
+                    disabled
                     id={key}
                     label={labels[key]}
                     type="date"
@@ -38,8 +38,8 @@ const objectFields = (card, isDoctor, handleChange) => {
             return <Grid key={key} item xs={6} sm={6}>
                 <TextField
                     key={key}
-                    required
-                    disabled={!isDoctor}
+                    //required
+                    disabled
                     id={key}
                     label={labels[key]}
                     type="datetype-local"
@@ -116,9 +116,9 @@ const objectFields = (card, isDoctor, handleChange) => {
             </Grid>
         } else {
             return <Grid key={key} item xs={6} sm={6}> <TextField
-                required
+                //required
                 fullWidth
-                disabled={!isDoctor}
+                disabled
                 id={key}
                 label={labels[key]}
                 defaultValue={card[key]}

@@ -69,6 +69,7 @@ class Appointments extends Component {
     }
 
     renderAppointments(appointments, isDoctor) {
+        
         return <Grid container
             direction="column"
             justify="center"
@@ -78,7 +79,7 @@ class Appointments extends Component {
                 <Grid key={appointment._id} item>
                     <Paper elevation={3} square={false} >
                         <Typography variant="h4" gutterBottom>
-                            Wizyta {appointment.dateTime}
+                            Wizyta {appointment.dateTime.split("T")[0] +" "+appointment.dateTime.split("T")[1]}
                         </Typography>
                         <Appointment appointment={appointment} isDoctor={isDoctor} />
                     </Paper>

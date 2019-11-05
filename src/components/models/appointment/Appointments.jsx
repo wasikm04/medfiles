@@ -91,7 +91,7 @@ class Appointments extends Component {
         //this.getAppointments(this.state.isDoctor, this.state.user);
         return (
             <React.Fragment>
-                <Paper elevation={1} square >
+                
                     <Grid
                         container
                         direction="column"
@@ -102,6 +102,7 @@ class Appointments extends Component {
                             Terminy wizyt
                         </Typography>
                     </Grid>
+                    <Paper elevation={1} square >
                     {this.state.appointments ? this.renderAppointments(this.state.appointments, this.state.isDoctor) : null}
                     {this.state.isDoctor ?
                         <Paper elevation={1} square>

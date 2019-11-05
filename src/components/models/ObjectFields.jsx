@@ -70,9 +70,9 @@ const objectFields = (card, isDoctor, handleChange) => {
                     variant="filled" />
                 {card[key] != null && isDoctor ?
                     <Grid container
-                    direction="column"
-                    justify="center"
-                    alignItems="center">
+                        direction="column"
+                        justify="center"
+                        alignItems="center">
                         <Link key={key} to={"/patient-card/" + card[key]}>
                             <Button
                                 id="button"
@@ -105,9 +105,11 @@ const objectFields = (card, isDoctor, handleChange) => {
                     <ListItemText key={item} primary={item} />
                 </ListItem>)
             return <Grid key={key} item xs={6} sm={6}>
-                <Typography variant="h6" >
-                    {labels[key]}
-                </Typography>
+                <Grid key={key} item container justify="center" xs={6} sm={6}>
+                    <Typography variant="h6" >
+                        {labels[key]}
+                    </Typography>
+                </Grid>
                 <List component="nav" aria-label="secondary mailbox folders">
                     {spec}
                 </List>

@@ -62,7 +62,7 @@ export default class MedicalTest extends Component {
 
   saveMedicalTest = (event) => {
     event.preventDefault();
-    const completedMedicalTest = { ...this.state.referral, userMail: this.state.patientMail }
+    const completedMedicalTest = { ...this.state.medicalTest, userMail: this.state.patientMail }
     const axios = require('axios');
     const config = {
       headers: {
@@ -94,13 +94,14 @@ export default class MedicalTest extends Component {
         <Grid
           container
           justify="space-around"
-          spacing={2}
+          //spacing={2}
           //direction="column"
           alignItems="center"
         >
           {objectFields(this.state.medicalTest, this.state.isDoctor, this.handleChange)}
           {this.state.medicalTest.fileId != null ? // onClick={(e) => this.download(e, this.state.medicalTest.fileId, this.state.patientMail)}
-            <Grid item xs={6} sm={6}>
+            <Grid item
+            >
               <Button variant="contained" component="span" >
                 <a href={"http://localhost:8080/download/" + this.state.patientMail + "/" + this.state.medicalTest.fileId} rel="noopener noreferrer" target="_blank" >
                   Pobierz badanie 

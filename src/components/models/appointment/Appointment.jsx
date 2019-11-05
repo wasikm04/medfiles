@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import objectFields from '../ObjectFields'
-
 export default class Appointment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            appointment: this.props.appointment, 
+            appointment: this.props.appointment,
             isDoctor: this.props.isDoctor,
         };
         this.saveAppointment = this.saveAppointment.bind(this);
@@ -22,15 +21,28 @@ export default class Appointment extends Component {
         })
     }
 
-    saveAppointment = (event) =>{
+    deleteReservation = (event) => {
         event.preventDefault();
+        const app = this.state.appointment;
+        app.patientMail = null;
+        console.log(app)
+        this.update(app);
+        this.setState({ appointment: null })
+    }
+
+    saveAppointment = (event) => {
+        event.preventDefault();
+        this.update(this.state.appointment);
+    }
+
+    update(appointment) {
         const axios = require('axios');
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        axios.put('/appointment', this.state.appointment, config, { withCredentials: true })
+        axios.put('/appointment', appointment, config, { withCredentials: true })
             .then((response) => {
                 console.log(response);
                 alert("Pomyślnie zapisano kartę")
@@ -43,8 +55,8 @@ export default class Appointment extends Component {
 
     render() {
         return (
-            <form 
-                key={this.state.appointment._id}
+            <form
+                key={this.state.appointment != null ? this.state.appointment._id : 1}
                 className={{
                     container: {
                         display: 'flex',
@@ -52,29 +64,43 @@ export default class Appointment extends Component {
                     }
                 }}
                 onSubmit={this.saveAppointment}>
+                    
                 <Grid
                     container
                     justify="space-around"
                     spacing={2}
                 >
-                    {objectFields(this.state.appointment, this.state.isDoctor, this.handleChange)}
-                </Grid>   
-                    <Grid
-                        key
-                        container
-                        direction="column"
-                        justify="center"
-                        alignItems="center"
+                    { this.state.appointment != null ?
+                     objectFields(this.state.appointment, this.state.isDoctor, this.handleChange)
+                     : null }
+                </Grid>
+                { this.state.appointment != null ?
+                <Grid
+                    key
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    spacing={2}
+                >
+                    <Button
+                        type="submit"
+                        id="button"
+                        color="primary"
+                        variant="contained"
                     >
-                        <Button
-                            type="submit"
-                            id="button"
-                            color="primary"
-                            variant="contained"
-                            >
-                            Zapisz
+                        Zapisz
                         </Button>
-                    </Grid>
+                    <Button
+                        onClick={(e) => this.deleteReservation(e)}
+                        id="button"
+                        color="primary"
+                        variant="contained"
+                    >
+                        Usuń
+                        </Button>
+                </Grid>
+                : null}
             </form>
         )
     }

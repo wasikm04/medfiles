@@ -41,11 +41,7 @@ const useStyles = makeStyles(theme => ({
         colour: 'rgb(238, 238, 238)'
     },
     toolbar: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing(3),
-    },
+
     colour: {
         background: 'rgb(35, 47, 62)',
         color: "white",

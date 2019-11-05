@@ -144,7 +144,7 @@ class MedicalTests extends Component {
                                     label="Data"
                                     type="date"
                                     margin="normal"
-                                    //fullWidth
+                                    fullWidth
                                     variant="filled"
                                     name="date"
                                     InputLabelProps={{
@@ -163,7 +163,7 @@ class MedicalTests extends Component {
                                         </TableCell>
                                     </div>
                                     <TextField
-                                        //fullWidth
+                                        fullWidth
                                         required
                                         id='purpose'
                                         label="Parametr z odniesieniem"

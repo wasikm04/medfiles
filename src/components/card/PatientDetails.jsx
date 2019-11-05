@@ -117,7 +117,7 @@ class PatientDetails extends Component {
   render() {
     return (
       <React.Fragment>
-        <Paper elevation={1} square >
+        
           <Grid
             container
             direction="column"
@@ -128,10 +128,11 @@ class PatientDetails extends Component {
               Dane pacjenta
             </Typography>
           </Grid>
+          <Paper elevation={1} square >
           <form className={classes.container} onSubmit={this.handleSubmit}>
             <Grid
               container
-              justify="space-around"
+              justify="center"
               spacing={2}
             >
               {this.prepareFields(this.state.card, this.state.isDoctor)}

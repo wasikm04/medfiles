@@ -12,7 +12,7 @@ const labels = {
     doctorMail: "Adres email lekarza",
     numberPWZ: "Numer prawa wykonywania zawodu",
     departmentNFZ: "Departament NFZ",
-    permissions: "Dodatkowe uprawnienie",
+    permissions: "Dodatkowe uprawnienia",
     medicines: "Leki",
     medicalTests: "Badania",
     testDate: "Data badania",

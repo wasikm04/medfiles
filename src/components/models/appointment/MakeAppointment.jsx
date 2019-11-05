@@ -75,6 +75,7 @@ export default class MakeAppointment extends Component {
                                     type="datetype-local"
                                     margin="normal"
                                     fullWidth
+                                    disabled
                                     variant="filled"
                                     defaultValue={app.dateTime}
                                 />

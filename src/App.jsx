@@ -19,7 +19,7 @@ import Logout from './components/helpers/Logout';
 import Appointments from './components/models/appointment/Appointments';
 import DoctorList from './components/models/DoctorList'
 import {ConnectedMedicalTests} from './components/models/medical-test/MedicalTests';
-import Prescriptions from './components/models/prescription/Prescriptions';
+import {ConnectedPrescriptions} from './components/models/prescription/Prescriptions';
 import {ConnectedReferrals} from './components/models/referral/Referrals.jsx';
 import Treatments from './components/models/treatment/Treatments';
 import Register from './components/helpers/Register';
@@ -75,7 +75,7 @@ class App extends Component {
               <ProtectedRoute
                 exact
                 path="/prescriptions"
-                component={() => <Prescriptions />}
+                component={() => <ConnectedPrescriptions/>}
               />
               <ProtectedRoute
                 exact

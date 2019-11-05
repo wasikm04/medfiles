@@ -10,6 +10,7 @@ import { Paper } from '@material-ui/core';
 import React, { Component } from 'react';
 import { Referrals } from "../models/referral/Referrals"
 import { MedicalTests } from "../models/medical-test/MedicalTests"
+import { Prescriptions } from "../models/prescription/Prescriptions"
 import { PatientDetails } from "./PatientDetails"
 import Box from "@material-ui/core/Box";
 
@@ -106,6 +107,9 @@ class PatientCard extends Component {
               </TabPanel>
               <TabPanel value={this.state.selected} index={2}>
                 <MedicalTests card={this.state.card} isDoctor={this.state.isDoctor} updateCard={this.props.updateCard} user={this.state.doctorMail} />
+              </TabPanel>
+              <TabPanel value={this.state.selected} index={3}>
+                <Prescriptions card={this.state.card} isDoctor={this.state.isDoctor} updateCard={this.props.updateCard} user={this.state.doctorMail} numberPWZ={this.state.doctorCard.numberPWZ}/>
               </TabPanel>
             </Grid>
             : null}

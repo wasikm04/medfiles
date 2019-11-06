@@ -129,7 +129,7 @@ class MedicalTests extends Component {
                                 container
                                 //direction="column"
                                 justify="center"
-                            // alignItems="center"
+                                // alignItems="center"
                             >
                                 <Typography variant="h4" gutterBottom>
                                     Nowe wyniki
@@ -191,7 +191,7 @@ class MedicalTests extends Component {
                                             color="primary"
                                             variant="contained"
                                         >Dodaj parametr
-                                     </Button>
+                                        </Button>
                                     </Grid>
                                 </Grid>
                                 <Grid container
@@ -211,7 +211,6 @@ class MedicalTests extends Component {
                         </form>
                     </Paper>
                     : null}
-
             </React.Fragment >
         );
     }

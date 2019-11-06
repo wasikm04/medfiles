@@ -99,6 +99,20 @@ const objectFields = (card, isDoctor, handleChange) => {
                     variant="filled" />
             </Grid>
         }
+        else if (key === "information") {
+            return <Grid key={key} item xs={6} sm={6}>
+                <TextField
+                    fullWidth
+                    multiline
+                    row={2}
+                    id={key}
+                    label={labels[key]}
+                    defaultValue={card[key]}
+                    onChange={(e) => handleChange(e, card._id)}
+                    margin="normal"
+                    variant="filled" />
+            </Grid>
+        }
         else if (Array.isArray(card[key])) {
             var spec = card[key].map((item) =>
                 <ListItem key={item} button>

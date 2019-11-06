@@ -21,7 +21,7 @@ import DoctorList from './components/models/DoctorList'
 import {ConnectedMedicalTests} from './components/models/medical-test/MedicalTests';
 import {ConnectedPrescriptions} from './components/models/prescription/Prescriptions';
 import {ConnectedReferrals} from './components/models/referral/Referrals.jsx';
-import Treatments from './components/models/treatment/Treatments';
+import {ConnectedTreatments} from './components/models/treatment/Treatments.jsx';
 import Register from './components/helpers/Register';
 import Welcome from './components/helpers/Welcome';
 import PatientCard from './components/card/PatientCard';
@@ -79,13 +79,13 @@ class App extends Component {
               />
               <ProtectedRoute
                 exact
-                path="/referrals"
-                component={() => <ConnectedReferrals />}
+                path="/treatments"
+                component={ConnectedTreatments}
               />
               <ProtectedRoute
                 exact
-                path="/treatments"
-                component={() => <Treatments />}
+                path="/referrals"
+                component={() => <ConnectedReferrals />}
               />
               <ProtectedRoute
                 path="/doctor-card/:doctorMail"  //wyszukiwanie doktora przez pacjentów :props.match.params.doctorMail

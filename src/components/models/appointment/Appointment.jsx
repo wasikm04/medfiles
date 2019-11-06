@@ -64,43 +64,45 @@ export default class Appointment extends Component {
                     }
                 }}
                 onSubmit={this.saveAppointment}>
-                    
+
                 <Grid
                     container
                     justify="space-around"
                     spacing={2}
                 >
-                    { this.state.appointment != null ?
-                     objectFields(this.state.appointment, this.state.isDoctor, this.handleChange)
-                     : null }
+                    {this.state.appointment != null ?
+                        objectFields(this.state.appointment, this.state.isDoctor, this.handleChange)
+                        : null}
                 </Grid>
-                { this.state.appointment != null ?
-                <Grid
-                    key
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                    spacing={2}
-                >
-                    <Button
-                        type="submit"
-                        id="button"
-                        color="primary"
-                        variant="contained"
+                {this.state.appointment != null ?
+                    <Grid
+                        key
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        spacing={2}
                     >
-                        Zapisz
+                        <Button
+                            type="submit"
+                            id="button"
+                            color="primary"
+                            variant="contained"
+                        >
+                            Zapisz
                         </Button>
-                    <Button
-                        onClick={(e) => this.deleteReservation(e)}
-                        id="button"
-                        color="primary"
-                        variant="contained"
-                    >
-                        Usuń
+                        {!this.state.isDoctor ?
+                            <Button
+                                onClick={(e) => this.deleteReservation(e)}
+                                id="button"
+                                color="primary"
+                                variant="contained"
+                            >
+                                Usuń
                         </Button>
-                </Grid>
-                : null}
+                            : null}
+                    </Grid>
+                    : null}
             </form>
         )
     }

@@ -4,12 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import { Link } from 'react-router-dom'
 
 function Information (props){
-    console.log("Information");
-    console.log(props);
     return(
-        
         <Paper elevation={1} square>
                         <form onSubmit={props.handleChange != null ? props.handleChange : null}>
                             <Grid
@@ -18,9 +16,14 @@ function Information (props){
                                 justify="center"
                                 //alignItems="center"
                             >
+                                {props.information != null && props.information.doctorMail != null ? 
                                 <Typography variant="h4" gutterBottom>
-                                    Nowe informacja
+                                    Autor zapisu 
+                                    <Link to={"/doctor-card/" + props.information.doctorMail}>
+                                        {" " + props.information.doctorMail}
+                                    </Link>
                                 </Typography>
+                                : null }
                                 <TextField
                                     required
                                     id="date"
@@ -28,7 +31,7 @@ function Information (props){
                                     label="Data"
                                     type="date"
                                     margin="normal"
-                                    defaultValue={this.props.information != null ? this.props.information.date : null}
+                                    defaultValue={props.information != null ? props.information.date : null}
                                     fullWidth
                                     variant="filled"
                                     name="date"
@@ -40,7 +43,7 @@ function Information (props){
                                     fullWidth
                                     required
                                     disabled={!props.isDoctor}
-                                    defaultValue={this.props.information != null ? this.props.information.information : null}
+                                    defaultValue={props.information != null ? props.information.information : null}
                                     id='purpose'
                                     label="Opis"
                                     margin="normal"

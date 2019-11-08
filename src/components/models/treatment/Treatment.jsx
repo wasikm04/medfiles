@@ -30,9 +30,17 @@ export default class Treatment extends Component {
             treatment: this.props.treatment,
             patientMail: this.props.user,
             isDoctor: this.props.isDoctor,
-            selected: 0
+            selected: 0,
+            symptoms: [],
+            symptom: null,
+            pharmacotherapy: [],
+            pharmaco: null,
+            medicalAnalysis: [],
+            medAnalys: null,
         };
         //this.saveTreatment = this.saveTreatment.bind(this);
+        this.pushToParametersList = this.pushToParametersList.bind(this);
+        this.handleParameterChange = this.handleParameterChange.bind(this);
     }
 
     handleTab = (event, newValue) => {
@@ -110,6 +118,6 @@ export default class Treatment extends Component {
                     )}
                 </TabPanel>
             </Grid>
-        )
+        ) //TODO: PANELE INFORMATION z dodawaniem pojedynczych obiektów i zapisem do bazy
     }
 }

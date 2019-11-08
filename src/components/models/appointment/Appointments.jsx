@@ -76,7 +76,7 @@ class Appointments extends Component {
             alignItems="center"
             spacing={2}>
             {appointments.map((appointment) =>
-                <Grid key={appointment._id} item>
+                <Grid key={appointment.dateTime} item>
                     <Paper elevation={3} square={false} >
                         <Typography variant="h4" gutterBottom>
                             Wizyta {appointment.dateTime.split("T")[0] +" "+appointment.dateTime.split("T")[1]}

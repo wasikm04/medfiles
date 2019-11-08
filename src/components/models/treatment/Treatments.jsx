@@ -15,20 +15,20 @@ import Box from "@material-ui/core/Box";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
-      <Typography
-        component="div"
-        role="tabpanel"
-        hidden={value !== index}
-        id={`scrollable-auto-tabpanel-${index}`}
-        aria-labelledby={`scrollable-auto-tab-${index}`}
-        {...other}
-      >
-        <Box p={3}>{children}</Box>
-      </Typography>
+        <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`scrollable-auto-tabpanel-${index}`}
+            aria-labelledby={`scrollable-auto-tab-${index}`}
+            {...other}
+        >
+            <Box p={3}>{children}</Box>
+        </Typography>
     );
-  }
+}
 class Treatments extends Component {
     constructor(props) {
         super(props);
@@ -86,6 +86,7 @@ class Treatments extends Component {
 
 
     addTreatment = (event) => {
+        console.log(event)
         event.preventDefault();
         const newelement = {
             _id: null,
@@ -125,9 +126,6 @@ class Treatments extends Component {
                 {treatments.map((test) =>
                     <Grid key={test.testDate + test._id} item>
                         <Paper elevation={3} square={false} >
-                            <Typography variant="h4" gutterBottom>
-                                Historia pacjenta
-                            </Typography>
                             <Treatment treatment={test} isDoctor={isDoctor} doctorMail={this.state.doctorMail} />
                         </Paper>
                     </Grid>
@@ -140,78 +138,70 @@ class Treatments extends Component {
     render() {
         return (
             <React.Fragment>
-                <Grid
-                    container
-                    justify="center"
-                    alignItems="center"
-                >
-                    <Typography variant="h4" gutterBottom>
-                        Historia pacjenta
-                    </Typography>
-                </Grid>
                 {this.prepareForms(this.state.treatments, this.state.isDoctor, this.state.patientMail)}
                 {this.state.isDoctor ?
                     <Paper elevation={1} square>
-                        <form onSubmit={this.props.addTreatment}>
-                            <Grid
-                                container
-                                direction="column"
-                                justify="center"
-                                alignItems="center"
-                            >
-                                <Typography variant="h4" gutterBottom>
-                                    Nowe historia
+
+                        <Grid
+                            container
+                            direction="column"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <Typography variant="h4" gutterBottom>
+                                Nowe historia
                                 </Typography>
-                                <AppBar position="static" color="default">
-                                    <Tabs
-                                        value={this.state.selected}
-                                        onChange={this.handleTab}
-                                        indicatorColor="primary"
-                                        textColor="primary"
-                                        variant="scrollable"
-                                        scrollButtons="auto"
-                                        aria-label="scrollable auto tabs example"
-                                    >
-                                        <Tab label="Symptomy i diagnoza" />
-                                        <Tab label="Farmakoterapia" />
-                                        <Tab label="Analiza medyczna i zalecenia" />
-                                    </Tabs>
-                                </AppBar>
-                                <TabPanel value={this.state.selected} index={0}>
-                                    <Information handleChange={(event) => this.handleParameterChange(event, this.state.symptom)} />
-                                    <Button
-                                        id="button"
-                                        color="primary"
-                                        variant="contained"
-                                        onClick={(event) => this.pushToParametersList(event, this.state.symptom, this.state.symptoms)}>
-                                        Dodaj
+                            <AppBar position="static" color="default">
+                                <Tabs
+                                    value={this.state.selected}
+                                    onChange={this.handleTab}
+                                    indicatorColor="primary"
+                                    textColor="primary"
+                                    variant="scrollable"
+                                    scrollButtons="auto"
+                                    aria-label="scrollable auto tabs example"
+                                >
+                                    <Tab label="Symptomy i diagnoza" />
+                                    <Tab label="Farmakoterapia" />
+                                    <Tab label="Analiza medyczna i zalecenia" />
+                                </Tabs>
+                            </AppBar>
+                            <TabPanel value={this.state.selected} index={0}>
+                                <Information handleChange={(event) => this.handleParameterChange(event, this.state.symptom)} isDoctor={this.state.isDoctor}/>
+                                <Button
+                                    id="button"
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={(event) => this.pushToParametersList(event, this.state.symptom, this.state.symptoms)}>
+                                    Dodaj do listy
                                     </Button>
-                                </TabPanel>
-                                <TabPanel value={this.state.selected} index={1}>
-                                    <Information handleChange={(event) => this.handleParameterChange(event, this.state.pharmaco)} />
-                                    <Button
-                                        id="button"
-                                        color="primary"
-                                        variant="contained"
-                                        onClick={(event) => this.pushToParametersList(event, this.state.pharmaco, this.state.pharmacotherapy)}>
-                                        Dodaj
+                            </TabPanel>
+                            <TabPanel value={this.state.selected} index={1}>
+                                <Information handleChange={(event) => this.handleParameterChange(event, this.state.pharmaco)} isDoctor={this.state.isDoctor} />
+                                <Button
+                                    id="button"
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={(event) => this.pushToParametersList(event, this.state.pharmaco, this.state.pharmacotherapy)}>
+                                    Dodaj do listy
                                     </Button>
-                                </TabPanel>
-                                <TabPanel value={this.state.selected} index={2}>
-                                    <Information handleChange={(event) => this.handleParameterChange(event, this.state.medAnalys)} />
-                                    <Button
-                                        id="button"
-                                        color="primary"
-                                        variant="contained"
-                                        onClick={(event) => this.pushToParametersList(event, this.state.medAnalys, this.state.medicalAnalysis)}>
-                                        Dodaj
+                            </TabPanel>
+                            <TabPanel value={this.state.selected} index={2}>
+                                <Information handleChange={(event) => this.handleParameterChange(event, this.state.medAnalys)} isDoctor={this.state.isDoctor} />
+                                <Button
+                                    id="button"
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={(event) => this.pushToParametersList(event, this.state.medAnalys, this.state.medicalAnalysis)}>
+                                    Dodaj do listy
                                     </Button>
-                                </TabPanel>
+                            </TabPanel>
+                            <form onSubmit={this.props.addTreatment}>
                                 <Grid
                                     container
                                     //direction="column"
                                     justify="center"
-                                    //alignItems="center"
+                                //alignItems="center"
                                 >
                                     <TextField
                                         fullWidth
@@ -231,12 +221,12 @@ class Treatments extends Component {
                                             color="primary"
                                             variant="contained"
                                         >
-                                            Zapisz historie
+                                            Zapisz nową historie
                                         </Button>
                                     </Grid>
                                 </Grid>
-                            </Grid>
-                        </form>
+                            </form>
+                        </Grid>
                     </Paper>
                     : null}
             </React.Fragment >

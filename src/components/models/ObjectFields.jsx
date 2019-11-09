@@ -6,8 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Link } from 'react-router-dom'
-import { Button } from '@material-ui/core';
+
 
 
 const objectFields = (card, isDoctor, handleChange) => {
@@ -68,24 +67,7 @@ const objectFields = (card, isDoctor, handleChange) => {
                     onChange={(e) => handleChange(e, card._id)}
                     margin="normal"
                     variant="filled" />
-                {card[key] != null && isDoctor ?
-                    <Grid container
-                        direction="column"
-                        justify="center"
-                        alignItems="center">
-                        <Link key={key} to={"/patient-card/" + card[key]}>
-                            <Button
-                                id="button"
-                                color="primary"
-                                variant="contained"
-                            >
-                                Karta Pacjenta
-                        </Button>
-                        </Link>
-                    </Grid>
-                    : null}
             </Grid>
-
         }
         else if (key === "comment") {
             return <Grid key={key} item xs={6} sm={6}>

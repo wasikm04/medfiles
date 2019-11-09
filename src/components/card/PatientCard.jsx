@@ -87,9 +87,9 @@ class PatientCard extends Component {
                   onChange={this.handleTab}
                   indicatorColor="primary"
                   textColor="primary"
-                  variant="scrollable"
                   scrollButtons="auto"
                   aria-label="scrollable auto tabs example"
+                  centered
                 >
                   <Tab label="Dane osobowe" />
                   <Tab label="Skierowania" />

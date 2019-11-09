@@ -12,6 +12,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Information from "./Information.jsx"
 import TextField from '@material-ui/core/TextField';
 import Box from "@material-ui/core/Box";
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -38,17 +42,18 @@ class Treatments extends Component {
             doctorMail: this.props.user,
             patientMail: this.props.card.userMail,
             symptoms: [],
-            symptom: null,
             pharmacotherapy: [],
-            pharmaco: null,
             medicalAnalysis: [],
-            medAnalys: null,
-            selected: 0
+            selected: 0,
+            expanded:""
         };
         this.addTreatment = this.addTreatment.bind(this);
         this.pushToParametersList = this.pushToParametersList.bind(this);
-        this.handleParameterChange = this.handleParameterChange.bind(this);
     }
+
+    handleChangePanel = panel => (event, isExpanded) => {
+        this.setState({ expanded: isExpanded ? panel : false });
+    };
 
     handleTab = (event, newValue) => {
         this.setState({ selected: newValue });
@@ -64,23 +69,16 @@ class Treatments extends Component {
         )
     }
 
-    handleParameterChange(event, name) {
-        console.log(event.target)
+    pushToParametersList = (event, listName) => {
+        event.preventDefault();
+        event.persist()
         const newInformation = {
             date: event.target[0].value,
             information: event.target[1].value,
             doctorMail: this.state.doctorMail
         }
-        this.setState({
-            [name]: newInformation
-        });
-    }
-
-    pushToParametersList = (event, paramName, listName) => {
-        console.log(event.target)
-        event.persist()
         this.setState(prevState => ({
-            [listName]: [...prevState[listName], this.state[paramName]]
+            [listName]: [...prevState[listName], newInformation]
         }))
     }
 
@@ -90,6 +88,7 @@ class Treatments extends Component {
         event.preventDefault();
         const newelement = {
             _id: null,
+            userMail: this.state.patientMail,
             numberICD: event.target[0].value,
             symptomsAndDiagnosis: this.state.symptoms,
             pharmacotherapy: this.state.pharmacotherapy,
@@ -102,7 +101,7 @@ class Treatments extends Component {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('/treatments', newelement, config, { withCredentials: true })
+        axios.post('/treatment', newelement, config, { withCredentials: true })
             .then((response) => {
                 console.log(response);
                 alert("Pomyślnie zapisano kartę")
@@ -112,6 +111,7 @@ class Treatments extends Component {
             })
             .catch(function (error) {
                 console.log(error);
+                console.log(newelement)
                 alert("Dane nie zostały zapisane ze względu na błędne dane")
             })
     }
@@ -124,9 +124,22 @@ class Treatments extends Component {
                 alignItems="center"
                 spacing={2}>
                 {treatments.map((test) =>
-                    <Grid key={test.testDate + test._id} item>
+                    <Grid key={test.numberICD + test._id} item>
                         <Paper elevation={3} square={false} >
-                            <Treatment treatment={test} isDoctor={isDoctor} doctorMail={this.state.doctorMail} />
+                            <ExpansionPanel expanded={this.state.expanded === test.numberICD + test._id} onChange={this.handleChangePanel(test.numberICD + test._id)}>
+                                <ExpansionPanelSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1bh-content"
+                                    id="panel1bh-header"
+                                >
+                                    <Typography variant="h4" gutterBottom>
+                                        Historia choroby {test.numberICD}
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Treatment treatment={test} isDoctor={isDoctor} doctorMail={this.state.doctorMail} user={this.state.patientMail}/>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
                         </Paper>
                     </Grid>
                 )}
@@ -136,12 +149,12 @@ class Treatments extends Component {
 
 
     render() {
+        var tempDate = new Date();
         return (
             <React.Fragment>
                 {this.prepareForms(this.state.treatments, this.state.isDoctor, this.state.patientMail)}
                 {this.state.isDoctor ?
                     <Paper elevation={1} square>
-
                         <Grid
                             container
                             direction="column"
@@ -149,17 +162,17 @@ class Treatments extends Component {
                             alignItems="center"
                         >
                             <Typography variant="h4" gutterBottom>
-                                Nowe historia
-                                </Typography>
+                                Nowa historia choroby
+                            </Typography>
                             <AppBar position="static" color="default">
                                 <Tabs
                                     value={this.state.selected}
                                     onChange={this.handleTab}
                                     indicatorColor="primary"
                                     textColor="primary"
-                                    variant="scrollable"
                                     scrollButtons="auto"
                                     aria-label="scrollable auto tabs example"
+                                    centered
                                 >
                                     <Tab label="Symptomy i diagnoza" />
                                     <Tab label="Farmakoterapia" />
@@ -167,41 +180,27 @@ class Treatments extends Component {
                                 </Tabs>
                             </AppBar>
                             <TabPanel value={this.state.selected} index={0}>
-                                <Information handleChange={(event) => this.handleParameterChange(event, this.state.symptom)} isDoctor={this.state.isDoctor}/>
-                                <Button
-                                    id="button"
-                                    color="primary"
-                                    variant="contained"
-                                    onClick={(event) => this.pushToParametersList(event, this.state.symptom, this.state.symptoms)}>
-                                    Dodaj do listy
-                                    </Button>
+                                {this.state.symptoms != null ? this.state.symptoms.map((info) =>
+                                    <Information key={tempDate.toISOString()} information={info} />
+                                ) : null}
+                                <Information handleChange={(event) => this.pushToParametersList(event, "symptoms")} isDoctor={this.state.isDoctor} />
                             </TabPanel>
                             <TabPanel value={this.state.selected} index={1}>
-                                <Information handleChange={(event) => this.handleParameterChange(event, this.state.pharmaco)} isDoctor={this.state.isDoctor} />
-                                <Button
-                                    id="button"
-                                    color="primary"
-                                    variant="contained"
-                                    onClick={(event) => this.pushToParametersList(event, this.state.pharmaco, this.state.pharmacotherapy)}>
-                                    Dodaj do listy
-                                    </Button>
+                                {this.state.pharmacotherapy != null ? this.state.pharmacotherapy.map((info) =>
+                                    <Information key={tempDate.toISOString()} information={info} />
+                                ) : null}
+                                <Information handleChange={(event) => this.pushToParametersList(event, "pharmacotherapy")} isDoctor={this.state.isDoctor} />
                             </TabPanel>
                             <TabPanel value={this.state.selected} index={2}>
-                                <Information handleChange={(event) => this.handleParameterChange(event, this.state.medAnalys)} isDoctor={this.state.isDoctor} />
-                                <Button
-                                    id="button"
-                                    color="primary"
-                                    variant="contained"
-                                    onClick={(event) => this.pushToParametersList(event, this.state.medAnalys, this.state.medicalAnalysis)}>
-                                    Dodaj do listy
-                                    </Button>
+                                {this.state.medicalAnalysis != null ? this.state.medicalAnalysis.map((info) =>
+                                    <Information key={tempDate.toISOString()} information={info} />
+                                ) : null}
+                                <Information handleChange={(event) => this.pushToParametersList(event, "medicalAnalysis")} isDoctor={this.state.isDoctor} />
                             </TabPanel>
-                            <form onSubmit={this.props.addTreatment}>
+                            <form onSubmit={this.addTreatment}>
                                 <Grid
                                     container
-                                    //direction="column"
                                     justify="center"
-                                //alignItems="center"
                                 >
                                     <TextField
                                         fullWidth

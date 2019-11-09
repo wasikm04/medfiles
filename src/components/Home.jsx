@@ -40,7 +40,7 @@ class Home extends Component {
 
   componentDidMount() {
     if (this.state.isDoctor) {
-      if(this.props.doctorCard == null){
+      if(this.props.doctorCard == null || this.props.doctorCard.doctorMail !== this.state.username){
         this.getDoctorCard()
       }
     } else {

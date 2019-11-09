@@ -13,6 +13,10 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 class MedicalTests extends Component {
     constructor(props) {
@@ -23,12 +27,17 @@ class MedicalTests extends Component {
             doctorMail: this.props.user,
             patientMail: this.props.card.userMail,
             parametersList: [],
-            parameter: null
+            parameter: null,
+            expanded: ""
         };
         this.addMedicalTest = this.addMedicalTest.bind(this);
         this.pushToParametersList = this.pushToParametersList.bind(this);
         this.handleParameterChange = this.handleParameterChange.bind(this);
     }
+
+    handleChangePanel = panel => (event, isExpanded) => {
+        this.setState({ expanded: isExpanded ? panel : false });
+    };
 
     handleChange = event => {
         event.persist()
@@ -63,10 +72,9 @@ class MedicalTests extends Component {
             testName: event.target[0].value,
             authorMail: this.state.doctorMail,
             parametersWithReference: this.state.parametersList,
-            fileId: null
+            fileId: null,
+            expanded: ""
         }
-        console.log(newelement)
-
         const axios = require('axios');
         const config = {
             headers: {
@@ -77,6 +85,8 @@ class MedicalTests extends Component {
             .then((response) => {
                 console.log(response);
                 alert("Pomyślnie zapisano kartę")
+                newelement._id = response.data;
+                console.log(newelement);
                 this.setState(prevState => ({
                     medicalTests: [...prevState.medicalTests, newelement]
                 }))
@@ -97,10 +107,20 @@ class MedicalTests extends Component {
                 {medicalTests.map((test) =>
                     <Grid key={test.testDate + test._id} item>
                         <Paper elevation={3} square={false} >
-                            <Typography variant="h4" gutterBottom>
-                                Badanie {test.testDate}
-                            </Typography>
-                            <MedicalTest medicalTest={test} isDoctor={isDoctor} user={this.state.patientMail} />
+                            <ExpansionPanel expanded={this.state.expanded === test.testDate+test._id} onChange={this.handleChangePanel(test.testDate+test._id)}>
+                                <ExpansionPanelSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1bh-content"
+                                    id="panel1bh-header"
+                                >
+                                    <Typography variant="h4" gutterBottom>
+                                        Badanie {test.testDate}
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <MedicalTest medicalTest={test} isDoctor={isDoctor} user={this.state.patientMail} />
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
                         </Paper>
                     </Grid>
                 )}
@@ -110,6 +130,8 @@ class MedicalTests extends Component {
 
 
     render() {
+        var tempDate = new Date();
+        var date = tempDate.toISOString().split("T")[0];
         return (
             <React.Fragment>
                 <Grid
@@ -129,7 +151,7 @@ class MedicalTests extends Component {
                                 container
                                 //direction="column"
                                 justify="center"
-                                // alignItems="center"
+                            // alignItems="center"
                             >
                                 <Typography variant="h4" gutterBottom>
                                     Nowe wyniki
@@ -147,6 +169,7 @@ class MedicalTests extends Component {
                                     id="date"
                                     label="Data"
                                     type="date"
+                                    defaultValue={date}
                                     margin="normal"
                                     fullWidth
                                     variant="filled"

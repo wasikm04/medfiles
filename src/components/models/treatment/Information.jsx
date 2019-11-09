@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom'
 
 function Information (props){
+    var tempDate = new Date();
+    var date = tempDate.toISOString().split("T")[0];
     return(
         <Paper elevation={1} square>
                         <form onSubmit={props.handleChange != null ? props.handleChange : null}>
@@ -23,7 +25,9 @@ function Information (props){
                                         {" " + props.information.doctorMail}
                                     </Link>
                                 </Typography>
-                                : null }
+                                : <Typography variant="h4" gutterBottom>
+                                    Nowy zapis 
+                                </Typography> }
                                 <TextField
                                     required
                                     id="date"
@@ -31,7 +35,7 @@ function Information (props){
                                     label="Data"
                                     type="date"
                                     margin="normal"
-                                    defaultValue={props.information != null ? props.information.date : null}
+                                    defaultValue={props.information != null ? props.information.date : date}
                                     fullWidth
                                     variant="filled"
                                     name="date"
@@ -60,7 +64,7 @@ function Information (props){
                                         color="primary"
                                         variant="contained"
                                     >
-                                        Zapisz wyniki
+                                        Dodaj do listy
                                     </Button>
                                 </Grid>
                                 : null}

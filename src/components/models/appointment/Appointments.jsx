@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { CardConsumer } from '../../providers/CardProvider'
+import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Appointment from './Appointment'
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
-
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 class Appointments extends Component {
     constructor(props) {
@@ -15,10 +19,15 @@ class Appointments extends Component {
             appointments: null,
             isDoctor: this.props.isDoctor,
             user: this.props.user,
-            doctorCard : this.props.doctorCard
+            doctorCard: this.props.doctorCard,
+            expanded: ""
         };
         this.addAppointment = this.addAppointment.bind(this);
     }
+
+    handleChange = panel => (event, isExpanded) => {
+        this.setState({ expanded: isExpanded ? panel : false });
+    };
 
     addAppointment = (event) => {
         event.preventDefault();
@@ -26,7 +35,7 @@ class Appointments extends Component {
             _id: null,
             patientMail: null, //""
             doctorMail: this.state.user,
-            doctorFullName: this.state.doctorCard.firstName +" "+ this.state.doctorCard.lastName,
+            doctorFullName: this.state.doctorCard.firstName + " " + this.state.doctorCard.lastName,
             dateTime: event.target[1].value,
             comment: event.target[0].value
         }
@@ -69,7 +78,7 @@ class Appointments extends Component {
     }
 
     renderAppointments(appointments, isDoctor) {
-        
+        var styles = {"marginLeft": "30px"};
         return <Grid container
             direction="column"
             justify="center"
@@ -78,10 +87,35 @@ class Appointments extends Component {
             {appointments.map((appointment) =>
                 <Grid key={appointment.dateTime} item>
                     <Paper elevation={3} square={false} >
-                        <Typography variant="h4" gutterBottom>
-                            Wizyta {appointment.dateTime.split("T")[0] +" "+appointment.dateTime.split("T")[1]}
-                        </Typography>
-                        <Appointment appointment={appointment} isDoctor={isDoctor} />
+                        <ExpansionPanel expanded={this.state.expanded === appointment.dateTime} onChange={this.handleChange(appointment.dateTime)}>
+                            <ExpansionPanelSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1bh-content"
+                                id="panel1bh-header"
+                            >
+                                <Grid container direction="row">
+                                    <Typography variant="h4" gutterBottom>
+                                        Wizyta {appointment.dateTime.split("T")[0] + " " + appointment.dateTime.split("T")[1]}
+                                    </Typography>
+                                    {appointment.patientMail != null && isDoctor ?
+                                        <Grid item style={styles} >
+                                            <Link to={"/patient-card/" + appointment.patientMail}>
+                                                <Button
+                                                    id="button"
+                                                    color="primary"
+                                                    variant="contained"
+                                                >
+                                                    Karta Pacjenta
+                                                </Button>
+                                            </Link>
+                                        </Grid>
+                                        : null}
+                                </Grid>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <Appointment appointment={appointment} isDoctor={isDoctor} />
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
                     </Paper>
                 </Grid>
             )}
@@ -92,18 +126,18 @@ class Appointments extends Component {
         //this.getAppointments(this.state.isDoctor, this.state.user);
         return (
             <React.Fragment>
-                
-                    <Grid
-                        container
-                        direction="column"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <Typography variant="h4" gutterBottom>
-                            Terminy wizyt
+
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <Typography variant="h4" gutterBottom>
+                        Terminy wizyt
                         </Typography>
-                    </Grid>
-                    <Paper elevation={1} square >
+                </Grid>
+                <Paper elevation={1} square >
                     {this.state.appointments ? this.renderAppointments(this.state.appointments, this.state.isDoctor) : null}
                     {this.state.isDoctor ?
                         <Paper elevation={1} square>
@@ -115,7 +149,7 @@ class Appointments extends Component {
                                     alignItems="center"
                                 >
                                     <Typography variant="h4" gutterBottom>
-                                    Nowa wizyta
+                                        Nowa wizyta
                                     </Typography>
                                     <TextField
                                         fullWidth
@@ -163,7 +197,7 @@ const ConnectedAppointments = props => (
                 {...props}
                 isDoctor={isDoctor}
                 user={user}
-                doctorCard = {doctorCard}
+                doctorCard={doctorCard}
             />
         )}
     </CardConsumer>

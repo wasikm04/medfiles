@@ -46,6 +46,7 @@ function Information (props){
                                 <TextField
                                     fullWidth
                                     required
+                                    multiline
                                     disabled={!props.isDoctor}
                                     defaultValue={props.information != null ? props.information.information : null}
                                     id='purpose'

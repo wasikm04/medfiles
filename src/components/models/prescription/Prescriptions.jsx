@@ -29,7 +29,7 @@ class Prescriptions extends Component {
             patientMail: this.props.card.userMail,
             medicinesList: [],
             medicine: null,
-            expanded:""
+            expanded: ""
         };
         this.addPrescription = this.addPrescription.bind(this);
         this.pushToMedicinesList = this.pushToMedicinesList.bind(this);
@@ -151,51 +151,69 @@ class Prescriptions extends Component {
                         <form onSubmit={this.addPrescription}>
                             <Grid
                                 container
-                                //direction="column"
                                 justify="center"
-                            // alignItems="center"
                             >
-                                <Typography variant="h4" gutterBottom>
-                                    Nowa recepta
-                                </Typography>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    id='purpose'
-                                    label="Dodatkowe uprawnienia"
-                                    margin="normal"
-                                    variant="filled"
-                                    name="testName" />
-                                <TextField
-                                    required
-                                    id="date"
-                                    label="Termin realizacji"
-                                    type="date"
-                                    margin="normal"
-                                    defaultValue={date}
-                                    fullWidth
-                                    variant="filled"
-                                    name="date"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                                <TextField
-                                    fullWidth
-                                    required
-                                    id='purpose'
-                                    label="Numer recepty"
-                                    margin="normal"
-                                    variant="filled"
-                                    name="testName" />
-                                <TextField
-                                    fullWidth
-                                    required
-                                    id='purpose'
-                                    label="Departament NFZ"
-                                    margin="normal"
-                                    variant="filled"
-                                    name="testName" />
+                                <Grid item xs={12}  
+                                container
+                                justify="center">
+                                    <Typography variant="h4" gutterBottom>
+                                        Nowa recepta
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={6}
+                                 container
+                                justify="center">
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        id='purpose'
+                                        label="Dodatkowe uprawnienia"
+                                        margin="normal"
+                                        variant="filled"
+                                        name="testName" />
+                                </Grid>
+                                <Grid item xs={6}
+                                container
+                                justify="center">
+                                    <TextField
+                                        required
+                                        id="date"
+                                        label="Termin realizacji"
+                                        type="date"
+                                        margin="normal"
+                                        defaultValue={date}
+                                        fullWidth
+                                        variant="filled"
+                                        name="date"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}
+                                container
+                                justify="center">
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        id='purpose'
+                                        label="Numer recepty"
+                                        margin="normal"
+                                        variant="filled"
+                                        name="testName" />
+                                </Grid>
+                                <Grid item xs={6}
+                                container
+                                justify="center">
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        id='purpose'
+                                        label="Departament NFZ"
+                                        margin="normal"
+                                        variant="filled"
+                                        name="testName" />
+                                </Grid>
                                 <Grid container
                                     direction="row"
                                     justify="center"

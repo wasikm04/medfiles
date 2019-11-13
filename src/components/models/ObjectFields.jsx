@@ -74,6 +74,7 @@ const objectFields = (card, isDoctor, handleChange) => {
                 <TextField
                     fullWidth
                     id={key}
+                    multiline
                     label={labels[key]}
                     defaultValue={card[key]}
                     onChange={(e) => handleChange(e, card._id)}
@@ -115,6 +116,7 @@ const objectFields = (card, isDoctor, handleChange) => {
             return <Grid key={key} item xs={6} sm={6}> <TextField
                 required
                 fullWidth
+                multiline
                 disabled={!isDoctor}
                 id={key}
                 label={labels[key]}

@@ -107,7 +107,7 @@ class MedicalTests extends Component {
                 {medicalTests.map((test) =>
                     <Grid key={test.testDate + test._id} item>
                         <Paper elevation={3} square={false} >
-                            <ExpansionPanel expanded={this.state.expanded === test.testDate+test._id} onChange={this.handleChangePanel(test.testDate+test._id)}>
+                            <ExpansionPanel expanded={this.state.expanded === test.testDate + test._id} onChange={this.handleChangePanel(test.testDate + test._id)}>
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1bh-content"
@@ -149,72 +149,90 @@ class MedicalTests extends Component {
                         <form onSubmit={this.addMedicalTest}>
                             <Grid
                                 container
-                                //direction="column"
                                 justify="center"
-                            // alignItems="center"
                             >
-                                <Typography variant="h4" gutterBottom>
-                                    Nowe wyniki
+                                <Grid item xs={12}
+                                    container
+                                    justify="center">
+                                    <Typography variant="h4" gutterBottom>
+                                        Nowe wyniki
                                 </Typography>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    id='purpose'
-                                    label="Nazwa badania"
-                                    margin="normal"
-                                    variant="filled"
-                                    name="testName" />
-                                <TextField
-                                    required
-                                    id="date"
-                                    label="Data"
-                                    type="date"
-                                    defaultValue={date}
-                                    margin="normal"
-                                    fullWidth
-                                    variant="filled"
-                                    name="date"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                                <Grid container
-                                    direction="row"
-                                    justify="center"
-                                    alignItems="center">
-                                    <Table aria-label="simple table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell>Wynik z odniesieniem</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell align="right">{this.state.parametersList.map(param =>
-                                                    (<ListItem key={param} button>
-                                                        <ListItemText primary={param} />
-                                                    </ListItem>))}
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
+                                </Grid>
+                                <Grid item xs={6}
+                                    container
+                                    justify="center">
                                     <TextField
                                         fullWidth
                                         required
                                         id='purpose'
-                                        label="Parametr z odniesieniem"
+                                        label="Nazwa badania"
                                         margin="normal"
                                         variant="filled"
-                                        onChange={this.handleParameterChange}
                                         name="testName" />
-                                    <Grid item>
-                                        <Button
-                                            onClick={(e) => this.pushToParametersList(e)}
-                                            id="button"
-                                            color="primary"
-                                            variant="contained"
-                                        >Dodaj parametr
+                                </Grid>
+                                <Grid item xs={6}
+                                    container
+                                    justify="center">
+                                    <TextField
+                                        required
+                                        id="date"
+                                        label="Data"
+                                        type="date"
+                                        defaultValue={date}
+                                        margin="normal"
+                                        fullWidth
+                                        variant="filled"
+                                        name="date"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid container
+                                    direction="row"
+                                    justify="center"
+                                    alignItems="center">
+                                    <Grid item xs={6}
+                                        container
+                                        justify="center">
+                                        <Table aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Wynik z odniesieniem</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell align="right">{this.state.parametersList.map(param =>
+                                                        (<ListItem key={param} button>
+                                                            <ListItemText primary={param} />
+                                                        </ListItem>))}
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </Grid>
+                                    <Grid item xs={6}
+                                        container
+                                        justify="center">
+                                        <TextField
+                                            fullWidth
+                                            required
+                                            id='purpose'
+                                            label="Parametr z odniesieniem"
+                                            margin="normal"
+                                            variant="filled"
+                                            onChange={this.handleParameterChange}
+                                            name="testName" />
+                                        <Grid item>
+                                            <Button
+                                                onClick={(e) => this.pushToParametersList(e)}
+                                                id="button"
+                                                color="primary"
+                                                variant="contained"
+                                            >Dodaj parametr
                                         </Button>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid container

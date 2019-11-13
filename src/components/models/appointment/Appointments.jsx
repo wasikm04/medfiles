@@ -157,6 +157,7 @@ class Appointments extends Component {
                                         id='comment'
                                         label="Komentarz"
                                         margin="normal"
+                                        multiline
                                         variant="filled"
                                         name="comment" />
                                     <TextField

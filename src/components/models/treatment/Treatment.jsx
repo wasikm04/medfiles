@@ -32,6 +32,7 @@ export default class Treatment extends Component {
             treatment: this.props.treatment,
             patientMail: this.props.user,
             isDoctor: this.props.isDoctor,
+            doctorMail: this.props.doctorMail,
             selected: 0,
             symptoms: [],
             pharmacotherapy: [],
@@ -64,16 +65,15 @@ export default class Treatment extends Component {
         }
         var updateList = this.state.treatment[listName];
         updateList = [...updateList, newInformation];
-        console.log(updateList)
         this.setState(prevState => ({
-            treatment: {...prevState.treatment, [listName]:updateList}
+            treatment: { ...prevState.treatment, [listName]: updateList }
         }))
-        console.log(this.state.treatment)
     }
 
     saveTreatment = (event) => {
         event.preventDefault();
         const completedTreatment = { ...this.state.treatment, userMail: this.state.patientMail }
+        console.log(completedTreatment)
         const axios = require('axios');
         const config = {
             headers: {
@@ -119,33 +119,41 @@ export default class Treatment extends Component {
                     {this.state.treatment.symptomsAndDiagnosis.map((info) =>
                         <Information key={tempDate.toISOString() + info._id} information={info} />
                     )}
-                    <Information handleChange={(event) => this.pushToParametersList(event, "symptomsAndDiagnosis")} isDoctor={this.state.isDoctor} />
+                    {this.state.isDoctor ?
+                        <Information handleChange={(event) => this.pushToParametersList(event, "symptomsAndDiagnosis")} isDoctor={this.state.isDoctor} />
+                    : null}
                 </TabPanel>
                 <TabPanel value={this.state.selected} index={1}>
                     {this.state.treatment.pharmacotherapy.map((info) =>
                         <Information key={tempDate.toISOString() + info._id} information={info} />
                     )}
-                    <Information handleChange={(event) => this.pushToParametersList(event, "pharmacotherapy")} isDoctor={this.state.isDoctor} />
+                    {this.state.isDoctor ?
+                        <Information handleChange={(event) => this.pushToParametersList(event, "pharmacotherapy")} isDoctor={this.state.isDoctor} />
+                    : null}
                 </TabPanel>
                 <TabPanel value={this.state.selected} index={2}>
                     {this.state.treatment.medicalAnalysisAndRecommendations.map((info) =>
                         <Information key={tempDate.toISOString() + info._id} information={info} />
                     )}
-                    <Information handleChange={(event) => this.pushToParametersList(event, "medicalAnalysisAndRecommendations")} isDoctor={this.state.isDoctor} />
+                    {this.state.isDoctor ?
+                        <Information handleChange={(event) => this.pushToParametersList(event, "medicalAnalysisAndRecommendations")} isDoctor={this.state.isDoctor} />
+                    : null}
                 </TabPanel>
-                <Grid container
-                    direction="row"
-                    justify="center"
-                    alignItems="center">
-                    <Button
-                        onClick={e => this.saveTreatment(e)}
-                        id="button"
-                        color="primary"
-                        variant="contained"
-                    >
-                        Zapisz historie
+                {this.state.isDoctor ?
+                    <Grid container
+                        direction="row"
+                        justify="center"
+                        alignItems="center">
+                        <Button
+                            onClick={e => this.saveTreatment(e)}
+                            id="button"
+                            color="primary"
+                            variant="contained"
+                        >
+                            Zapisz historie
                     </Button>
-                </Grid>
+                    </Grid>
+                : null}
             </Grid>
         ) //TODO: PANELE INFORMATION z dodawaniem pojedynczych obiektów i zapisem do bazy
     }

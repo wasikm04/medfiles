@@ -117,31 +117,46 @@ class Referrals extends Component {
                                 justify="center"
                                 alignItems="center"
                             >
-                                <Typography variant="h4" gutterBottom>
-                                    Nowe skierowanie
+                                <Grid item xs={12}
+                                    container
+                                    justify="center">
+                                    <Typography variant="h4" gutterBottom>
+                                        Nowe skierowanie
                                     </Typography>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    id='purpose'
-                                    label="Cel skierowania"
-                                    margin="normal"
-                                    variant="filled"
-                                    name="purpose" />
-                                <TextField
-                                    required
-                                    id="date"
-                                    label="Data"
-                                    type="date"
-                                    margin="normal"
-                                    defaultValue={date}
-                                    fullWidth
-                                    variant="filled"
-                                    name="date"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
+                                </Grid>
+                                <Grid item xs={6}
+                                    container
+                                    justify="center">
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        id='purpose'
+                                        multiline
+                                        label="Cel skierowania"
+                                        margin="normal"
+                                        variant="filled"
+                                        name="purpose" />
+                                </Grid>
+                                <Grid item xs={6}
+                                    container
+                                    justify="center">
+                                    <TextField
+                                        required
+                                        id="date"
+                                        multiline
+                                        row={2}
+                                        label="Data"
+                                        type="date"
+                                        margin="normal"
+                                        defaultValue={date}
+                                        fullWidth
+                                        variant="filled"
+                                        name="date"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
                                 <TextField
                                     fullWidth
                                     required

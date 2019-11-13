@@ -25,7 +25,6 @@ export default class Appointment extends Component {
         event.preventDefault();
         const app = this.state.appointment;
         app.patientMail = null;
-        console.log(app)
         this.update(app);
         this.setState({ appointment: null })
     }
@@ -44,11 +43,9 @@ export default class Appointment extends Component {
         }
         axios.put('/appointment', appointment, config, { withCredentials: true })
             .then((response) => {
-                console.log(response);
                 alert("Pomyślnie zapisano kartę")
             })
             .catch(function (error) {
-                console.log(error);
                 alert("Dane nie zostały zapisane ze względu na błędny/już istniejący email")
             })
     }

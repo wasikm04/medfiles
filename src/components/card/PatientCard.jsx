@@ -12,6 +12,7 @@ import { Prescriptions } from "../models/prescription/Prescriptions"
 import { Treatments } from "../models/treatment/Treatments"
 import { PatientDetails } from "./PatientDetails"
 import Box from "@material-ui/core/Box";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,7 +48,7 @@ class PatientCard extends Component {
 
   componentDidMount() {
     const axios = require('axios');
-    axios.get('/card/' +this.props.match.params.patientMail, + "/", { withCredentials: true })
+    axios.get('/card/' + this.props.match.params.patientMail, + "/", { withCredentials: true })
       .then((response) => {
         console.log(response.data)
         this.setState({
@@ -63,18 +64,18 @@ class PatientCard extends Component {
   render() {
     return (
       <React.Fragment>
-        <Paper elevation={1} square >
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <Typography variant="h4" gutterBottom>
-              Kartoteka pacjenta
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography variant="h4" gutterBottom>
+            Kartoteka pacjenta
             </Typography>
-          </Grid>
-          {this.state.card != null ?
+        </Grid>
+        {this.state.card != null ?
+          <Paper elevation={1} square >
             <Grid
               container
               direction="column"
@@ -108,14 +109,15 @@ class PatientCard extends Component {
                 <MedicalTests card={this.state.card} isDoctor={this.state.isDoctor} updateCard={this.props.updateCard} user={this.state.doctorMail} />
               </TabPanel>
               <TabPanel value={this.state.selected} index={3}>
-                <Prescriptions card={this.state.card} isDoctor={this.state.isDoctor} updateCard={this.props.updateCard} user={this.state.doctorMail} numberPWZ={this.state.doctorCard.numberPWZ}/>
+                <Prescriptions card={this.state.card} isDoctor={this.state.isDoctor} updateCard={this.props.updateCard} user={this.state.doctorMail} numberPWZ={this.state.doctorCard.numberPWZ} />
               </TabPanel>
               <TabPanel value={this.state.selected} index={4}>
                 <Treatments card={this.state.card} isDoctor={this.state.isDoctor} updateCard={this.props.updateCard} user={this.state.doctorMail} />
               </TabPanel>
             </Grid>
-            : null}
-        </Paper>
+          </Paper>
+          : <CircularProgress align="center" />}
+
       </React.Fragment>
     )
   }

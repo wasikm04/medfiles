@@ -106,7 +106,7 @@ class Prescriptions extends Component {
                 justify="flex-start"
                 alignItems="center"
                 spacing={2}>
-                {prescriptions.map((prep) =>
+                {prescriptions != null ? prescriptions.map((prep) =>
                     <Grid key={prep.prescriptionId + prep.dateTo} item>
                         <Paper elevation={3} square={false} >
                             <ExpansionPanel expanded={this.state.expanded === prep.dateTo + prep._id} onChange={this.handleChangePanel(prep.dateTo + prep._id)}>
@@ -125,7 +125,7 @@ class Prescriptions extends Component {
                             </ExpansionPanel>
                         </Paper>
                     </Grid>
-                )}
+                ) : null}
             </Grid>
         )
     }

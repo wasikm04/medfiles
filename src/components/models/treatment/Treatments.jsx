@@ -123,7 +123,7 @@ class Treatments extends Component {
                 justify="flex-start"
                 alignItems="center"
                 spacing={2}>
-                {treatments.map((test) =>
+                {treatments != null ? treatments.map((test) =>
                     <Grid key={test.numberICD + test._id} item>
                         <Paper elevation={3} square={false} >
                             <ExpansionPanel expanded={this.state.expanded === test.numberICD + test._id} onChange={this.handleChangePanel(test.numberICD + test._id)}>
@@ -142,7 +142,9 @@ class Treatments extends Component {
                             </ExpansionPanel>
                         </Paper>
                     </Grid>
-                )}
+                ) : <Typography variant="h4" gutterBottom>
+                         Historia chorób
+                    </Typography>}
             </Grid>
         )
     }

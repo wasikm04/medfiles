@@ -32,10 +32,10 @@ class Referrals extends Component {
         event.preventDefault();
         const newelement = {
             _id: null,
-            date: event.target[1].value,
+            date: event.target[2].value,
             userMail: this.state.patientMail,
             purpose: event.target[0].value,
-            recognition: event.target[2].value,
+            recognition: event.target[4].value,
             doctorMail: this.state.doctorMail,
             numberPWZ: this.state.numberPWZ
         }
@@ -69,7 +69,7 @@ class Referrals extends Component {
                 justify="flex-start"
                 alignItems="center"
                 spacing={2}>
-                {referrals.map((referral) =>
+                {referrals != null ? referrals.map((referral) =>
                     <Grid key={referral.date + referral._id} item>
                         <Paper elevation={3} square={false} >
                             <ExpansionPanel expanded={this.state.expanded === referral.date + referral._id} onChange={this.handleChangePanel(referral.date + referral._id)}>
@@ -88,7 +88,7 @@ class Referrals extends Component {
                             </ExpansionPanel>
                         </Paper>
                     </Grid>
-                )}
+                ) : null}
             </Grid>
         )
     }
@@ -157,14 +157,19 @@ class Referrals extends Component {
                                         }}
                                     />
                                 </Grid>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    id='reckognition'
-                                    label="Rozpoznanie"
-                                    margin="normal"
-                                    variant="filled"
-                                    name="reckognition" />
+                                <Grid item xs={12}
+                                    container
+                                    justify="center">
+                                    <TextField
+                                        fullWidth
+                                        multiline
+                                        required
+                                        id='reckognition'
+                                        label="Rozpoznanie"
+                                        margin="normal"
+                                        variant="filled"
+                                        name="reckognition" />
+                                </Grid>
                                 <Button
                                     type="submit"
                                     id="button"

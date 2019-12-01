@@ -51,9 +51,9 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        const { cookies } = this.props;
+        //const { cookies } = this.props;
         let username = localStorage.getItem("username");
-        if (cookies.get("SESSION") != null && username != null) {
+        if ( username != null) {
             this.getRole(username);
         }
     }

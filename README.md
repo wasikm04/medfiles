@@ -9,10 +9,12 @@ Server-side application code is available here:
 https://github.com/wasikm04/MedicalFiles
 
 ## 2. Examples of views
-__Choosen user views:__
+### Choosen user views:
+
 <img src="https://github.com/wasikm04/medfiles/blob/master/img/user2.png" width="800"/>
 <img src="https://github.com/wasikm04/medfiles/blob/master/img/user5.png" width="800"/>
 
-__Choosen doctor views:__
+### Choosen doctor views:
+
 <img src="https://github.com/wasikm04/medfiles/blob/master/img/doctor4.png" width="800"/>
 <img src="https://github.com/wasikm04/medfiles/blob/master/img/doctor5.png" width="800"/>
